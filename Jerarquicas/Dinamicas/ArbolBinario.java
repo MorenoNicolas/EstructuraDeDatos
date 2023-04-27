@@ -1,5 +1,5 @@
 package Dinamicas;
-import Lineales.Dinamicas.Lista;
+
 public class ArbolBinario {
     private NodoArbol raiz;
     
@@ -84,11 +84,12 @@ public class ArbolBinario {
     }
 
     private int obtenerAlturaRecursivo(NodoArbol nodo) {
+        int alturaIzquierda, alturaDerecha;
         if (nodo == null) {
             return 0;
         }
-        int alturaIzquierda = obtenerAlturaRecursivo(nodo.getIzq());
-        int alturaDerecha = obtenerAlturaRecursivo(nodo.getDer());
+        alturaIzquierda = obtenerAlturaRecursivo(nodo.getIzq());
+        alturaDerecha = obtenerAlturaRecursivo(nodo.getDer());
         return 1 + Math.max(alturaIzquierda, alturaDerecha);
     }
     public Lista listarPreorden(){
@@ -156,17 +157,72 @@ public class ArbolBinario {
             cadena = stringAux(nodo.getDer(), cadena);
         return cadena;
     }
+    public Lista frontera(){
+        Lista lis = new Lista();
+        fronteraAux(raiz, lis);
+        return lis;
+    }
+    private void fronteraAux(NodoArbol n, Lista lis){
+        if(n!=null){
+            fronteraAux(n.getIzq(), lis);
+            fronteraAux(n.getDer(), lis);
+            if(n.getIzq()==null&&n.getDer() ==null){
+                lis.insertar(n.getElem(), lis.longitud()+1);
+            }
+        }
+    }
+    public Lista obtenerAncestros(Object m){
+        boolean encontrado =false;
+        Lista unaLista = new Lista();
+        ancestrosAux2(raiz, m, unaLista);
+        return unaLista;
+    }
+    private void ancestrosAux(NodoArbol n, Object elem ,Lista lis){
+        if(n!=null){
+            if(n.getElem().equals(elem)){
+                ancestrosAux(n.getIzq(),  elem ,lis);
+                ancestrosAux(n.getDer(),  elem, lis);
+            }else{
+                lis.insertar(n.getElem(),lis.longitud()+1);
+            }
+        }
+    }
+   
+    private boolean ancestrosAux2(NodoArbol nAux, Object buscado, Lista unaLista){
+        boolean encontrado = false;
+        if(nAux!=null){
+            String elemento = nAux.getElem().toString();
+            if(elemento.equals(buscado)){
+                encontrado = true;
+            } else {
+                encontrado = ancestrosAux2(nAux.getIzq(),buscado,unaLista);
+            }
+            if(!encontrado){
+                encontrado = ancestrosAux2(nAux.getDer(),buscado,unaLista);
+            }
+            if(encontrado && (!elemento.equals(buscado)||elemento.equals(this.raiz.getElem().toString()))){
+                unaLista.insertar(nAux.getElem(), unaLista.longitud()+1);
+            }
+        }
+        return encontrado;
+    }
 }
-
-//         if(n.getElem().equals(buscado)||n.getElem().equals(buscado)){
-//             resultado = n.getElem();
-//         }else if(n!=null){
-//             resultado = padreAux(n.getIzq(), buscado);
-//             if(resultado ==null){
-//                 resultado = padreAux(n.getDer(), buscado);
-//             }
-//         }
-//         return resultado;
+// private boolean ancestrosAux3(NodoArbol n, Object elem, Lista lis) {
+//     if (n == null) {
+//         return false;
 //     }
-    
-//  }
+//     if (n.getElem().equals(elem)) {
+//         return true;
+//     }
+//     boolean encontrado = ancestrosAux3(n.getIzq(), elem, lis);
+//     if (encontrado) {
+//         lis.insertar(n.getElem(), lis.longitud() + 1);
+//         return true;
+//     }
+//     encontrado = ancestrosAux3(n.getDer(), elem, lis);
+//     if (encontrado) {
+//         lis.insertar(n.getElem(), lis.longitud() + 1);
+//         return true;
+//     }
+//     return false;
+// }
