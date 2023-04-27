@@ -1,5 +1,6 @@
 package Dinamicas;
 
+
 public class ArbolBinario {
     private NodoArbol raiz;
     
@@ -172,22 +173,11 @@ public class ArbolBinario {
         }
     }
     public Lista obtenerAncestros(Object m){
-        boolean encontrado =false;
         Lista unaLista = new Lista();
         ancestrosAux2(raiz, m, unaLista);
         return unaLista;
     }
-    private void ancestrosAux(NodoArbol n, Object elem ,Lista lis){
-        if(n!=null){
-            if(n.getElem().equals(elem)){
-                ancestrosAux(n.getIzq(),  elem ,lis);
-                ancestrosAux(n.getDer(),  elem, lis);
-            }else{
-                lis.insertar(n.getElem(),lis.longitud()+1);
-            }
-        }
-    }
-   
+   //mmm
     private boolean ancestrosAux2(NodoArbol nAux, Object buscado, Lista unaLista){
         boolean encontrado = false;
         if(nAux!=null){
@@ -207,6 +197,7 @@ public class ArbolBinario {
         return encontrado;
     }
 }
+
 // private boolean ancestrosAux3(NodoArbol n, Object elem, Lista lis) {
 //     if (n == null) {
 //         return false;
