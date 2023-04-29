@@ -128,4 +128,42 @@ public class Lista {
         }
         return cadena;
     }
-}
+    public Lista obtenerMultiplos(int num){
+        Lista lis = new Lista();
+        Nodo aux = cabecera;
+        int i=1,j=1;
+
+        while(i<=this.longitud()){
+            if(i%num==0){
+                if(j==1){
+                    lis.cabecera = new Nodo(aux.getElem(), cabecera);
+                }
+                lis.insertar(aux.getElem(), j);
+                aux=aux.getEnlace();
+                i++;
+                j++;
+            }else{
+                aux=aux.getEnlace();
+                i++;
+            }
+        }
+        return lis;
+    }
+    public void eliminarOcurrencias(Object x){
+        Nodo aux=cabecera;
+        int i=1;
+        while(cabecera.getElem().equals(x)){
+            cabecera = cabecera.getEnlace();
+        }
+            while(aux.getEnlace() != null){
+                if(aux.getEnlace().getElem().equals(x)){
+                    aux.setEnlace(aux.getEnlace().getEnlace());
+                    
+                }else{
+                    aux = aux.getEnlace();
+                    
+                }
+            }
+        }
+    }
+

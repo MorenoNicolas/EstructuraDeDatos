@@ -3,19 +3,20 @@ package Dinamicas;
 public class PruebaLista {
     public static void main(String[] args) {
         Lista lista1 = new Lista();
-        Lista lista2 = new Lista();
+        
 
-        lista1.insertar(1, 1);
-        lista1.insertar(2, 2);
-        lista1.insertar(3, 3);
+        lista1.insertar('B', 1);
+        lista1.insertar('B', 2);
+        lista1.insertar('B', 3);
+        lista1.insertar('B', 4);
+        lista1.insertar('T', 5);
+        lista1.insertar('B', 6);
+        lista1.insertar('B', 7);
+        lista1.insertar('B', 8);
+        lista1.insertar('R', 9);
         ///////////////////////////////////
-        lista2.insertar(1, 1);
-        lista2.insertar(2, 2);
-        lista2.insertar(3, 3);
-        lista2.insertar(6, 4);
-
-        System.out.println(concatenar(lista1, lista2).toString());
-        System.out.println(concatenar(lista1, lista2).longitud());
+        lista1.eliminarOcurrencias('B');
+        System.out.println(lista1.toString());
         
     }
     public static Lista concatenar(Lista lista1, Lista lista2){
