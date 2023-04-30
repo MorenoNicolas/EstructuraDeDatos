@@ -1,0 +1,63 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Test",
+            "request": "launch",
+            "mainClass": "Dinamicas.Test",
+            "projectName": "EstructuraDeDatos_905617a2"
+        },
+        {
+            "type": "java",
+            "name": "TestCadenas",
+            "request": "launch",
+            "mainClass": "Dinamicas.TestCadenas",
+            "projectName": "EstructuraDeDatos_905617a2"
+        },
+        {
+            "type": "java",
+            "name": "TestingPila2",
+            "request": "launch",
+            "mainClass": "Dinamicas.TestingPila2",
+            "projectName": "EstructuraDeDatos_905617a2"
+        },
+        {
+            "type": "java",
+            "name": "testArboles",
+            "request": "launch",
+            "mainClass": "Dinamicas.testArboles",
+            "projectName": "EstructuraDeDatos_905617a2"
+        },
+        {
+            "type": "java",
+            "name": "testingLista",
+            "request": "launch",
+            "mainClass": "Dinamicas.testingLista",
+            "projectName": "EstructuraDeDatos_905617a2"
+        },
+        {
+            "type": "java",
+            "name": "testPila",
+            "request": "launch",
+            "mainClass": "Estaticas.testPila",
+            "projectName": "EstructuraDeDatos_905617a2"
+        },
+        {
+            "type": "java",
+            "name": "testEjerciciosArbol",
+            "request": "launch",
+            "mainClass": "TestED.testEjerciciosArbol",
+            "projectName": "EstructuraDeDatos_905617a2"
+        }
+    ]
+}

@@ -25,7 +25,7 @@ public class Cola {
         String s = "";
 
         if (esVacia()) {
-            s = "Pila vacia";
+            s = "Cola vacia";
         } else {
             Nodo aux = frente;
             s = "[";

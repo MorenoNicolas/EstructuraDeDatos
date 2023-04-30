@@ -196,6 +196,33 @@ public class ArbolBinario {
         }
         return encontrado;
     }
+    public boolean verificarPatron(Lista patron) {
+        int i = 1;
+        boolean esta = false;
+        if (raiz.getElem() == patron.recuperar(i)) {
+            esta = patronAux(raiz, patron, i + 1);
+        }
+        return esta;
+    }
+    
+    private boolean patronAux(NodoArbol n, Lista patron, int i) {
+        boolean encontrado = false;
+        if (n != null&& !encontrado) {
+            if (n.getIzq() != null && n.getIzq().getElem() == patron.recuperar(i)) {
+                encontrado = patronAux(n.getIzq(), patron, i + 1);
+                System.out.println("entro izq "+i);
+            }
+            if (!encontrado && n.getDer() != null && n.getDer().getElem() == patron.recuperar(i)) {
+                encontrado = patronAux(n.getDer(), patron, i + 1);
+                System.out.println("entro der "+i);
+            }
+            if (i == patron.longitud() && n.getIzq() == null && n.getDer() == null) {
+                encontrado = true;
+            }
+        }
+        return encontrado;
+    }
+    
 }
 
 // private boolean ancestrosAux3(NodoArbol n, Object elem, Lista lis) {

@@ -3,6 +3,7 @@ package Dinamicas;
 public class testArboles {
     public static void main(String[] args) {
         ArbolBinario arbol = new ArbolBinario();
+        Lista lis = new Lista();
 
         arbol.insertar('a',null,null);
         arbol.insertar('b','a',true);
@@ -12,8 +13,14 @@ public class testArboles {
         arbol.insertar('x','c',true);
         arbol.insertar('w','c',false);
         arbol.insertar('z','f',true);
+
+        lis.insertar('a', 1);
+        lis.insertar('b', 2);
+        lis.insertar('c', 3);
         
-        System.out.println(arbol.obtenerAncestros('x'));
+        
+        System.out.println(lis.toString());
+        System.out.println(arbol.verificarPatron(lis));
 
 
 
