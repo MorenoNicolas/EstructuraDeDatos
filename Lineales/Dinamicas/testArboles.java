@@ -14,14 +14,9 @@ public class testArboles {
         arbol.insertar('w','c',false);
         arbol.insertar('z','f',true);
 
-        lis.insertar('a', 1);
-        lis.insertar('b', 2);
-        lis.insertar('c', 3);
-        
-        
-        System.out.println(lis.toString());
-        System.out.println(arbol.verificarPatron(lis));
-
+        System.out.println(arbol.toString());
+        arbol.compHijos();
+        System.out.println(arbol.toString());
 
 
         

@@ -222,7 +222,20 @@ public class ArbolBinario {
         }
         return encontrado;
     }
-    
+    public void compHijos(){
+        completarHijos(raiz);
+    }
+   private void completarHijos(NodoArbol n){
+    if(n!=null&&n.getDer()!=null||n.getIzq()!=null){
+        if(n.getIzq()==null){
+            n.setIzq(new NodoArbol(n.getDer().getElem(), null, null));
+        }else if(n.getDer()==null){
+            n.setDer(new NodoArbol(n.getIzq().getElem(), null, null));
+        }
+        completarHijos(n.getIzq());
+        completarHijos(n.getDer());
+    }
+   } 
 }
 
 // private boolean ancestrosAux3(NodoArbol n, Object elem, Lista lis) {

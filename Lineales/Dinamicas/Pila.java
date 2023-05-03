@@ -1,9 +1,5 @@
 package Dinamicas;
 
-
-
-
-
 public class Pila {
 
     private Nodo tope;
@@ -22,7 +18,7 @@ public class Pila {
 
         if (this.tope == null) {
             return false;
-            
+
         } else {
             this.tope = this.tope.getEnlace();
             return true;
@@ -55,17 +51,16 @@ public class Pila {
             s = "pila vacia";
         } else {
             while (aux != null) {
-                s = aux.getElem().toString()+s;
+                s = aux.getElem().toString() + s;
                 aux = aux.getEnlace();
                 if (aux != null) {
-                    s = ","+s;
+                    s = "," + s;
                 }
             }
         }
         return "[" + s;
     }
 
-    @Override
     public Pila clone() {
         Pila clon = new Pila();
         clonar(clon, this.tope);
@@ -74,12 +69,26 @@ public class Pila {
 
     private void clonar(Pila clon, Nodo otroEnlace) {
         if (otroEnlace != null) {
-            //va recursivamente hasta que llega al final del nodo( osea enlace nulo)
+            // va recursivamente hasta que llega al final del nodo( osea enlace nulo)
             clonar(clon, otroEnlace.getEnlace());
-            //una vez llega al final va cambiando el tope y poniendolo como enlace, si no queda al reves la pila
+            // una vez llega al final va cambiando el tope y poniendolo como enlace, si no
+            // queda al reves la pila
             clon.tope = new Nodo(otroEnlace.getElem(), clon.tope);
         }
     }
 
+    public boolean equals(Pila p) {
+        boolean iguales = true;
+        Nodo aux1 = this.tope;
+        Nodo aux2 = p.tope;
+        while (aux1 != null && aux2 != null && iguales) {
+            if (aux1.getElem() == aux2.getElem()) {
+                aux1 = aux1.getEnlace();
+                aux2 = aux2.getEnlace();
+            } else {
+                iguales = false;
+            }
+        }
+        return iguales;
+    }
 }
-

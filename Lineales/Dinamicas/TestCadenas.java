@@ -2,19 +2,20 @@ package Dinamicas;
 
 public class TestCadenas {
     public static void main(String[] args) {
-        // Cola c1 = new Cola();
-        // c1.poner('A');
-        // c1.poner('B');
-        // c1.poner('#');
-        // c1.poner('C');
-        // c1.poner('#');
-        // c1.poner('D');
-        // c1.poner('E');
-        // c1.poner('F');
+        
+        Pila p1 = new Pila();
+        Pila p2 = new Pila();
 
-        // System.out.println(c1.toString());
-        // System.out.println(generar(c1));
+        p1.apilar(1);
+        p1.apilar(2);
+        p1.apilar(3);
+        p1.apilar(4);
 
+        p2.apilar(1);
+        p2.apilar(2);
+        p2.apilar(4);
+
+        System.out.println(p1.equals(p2));
     }
 
     public static Cola generar(Cola c1) {
@@ -62,6 +63,7 @@ public class TestCadenas {
             }
             q.sacar();
         }
+        
         i=1;
         while(!pila.esVacia() && resultado){
             elem = (char) lista.recuperar(i);
@@ -77,7 +79,36 @@ public class TestCadenas {
         return resultado;
     }
 
-    
+    public static int cuentaSecuencias(Cola secu){
+        int retorno = 0;
+        Pila p = new Pila();
+        Cola q = secu.clone();
+        Cola q2 = new Cola();
+
+        while(!q.esVacia()){
+            boolean capicua =true;
+            while(!q.esVacia()&&!q.obtenerFrente().equals('$')){
+                q2.poner(q.obtenerFrente());
+                p.apilar(q.obtenerFrente());
+                q.sacar();
+            }
+            while(capicua&&!p.esVacia()){
+                if(q2.obtenerFrente()==p.obtenerTope()){
+                    q2.sacar();
+                    p.desapilar();
+                }else{
+                    capicua =false;
+                }
+            }
+            if(capicua==true){
+                retorno++;
+            }
+            q.sacar();
+            q2.vaciar();
+            p.vaciar();
+        }
+        return retorno;
+    }
 }
     
   
