@@ -196,31 +196,31 @@ public class ArbolBinario {
         }
         return encontrado;
     }
-    public boolean verificarPatron(Lista patron) {
-        int i = 1;
-        boolean esta = false;
-        if (raiz.getElem() == patron.recuperar(i)) {
-            esta = patronAux(raiz, patron, i + 1);
-        }
-        return esta;
-    }
     
-    private boolean patronAux(NodoArbol n, Lista patron, int i) {
-        boolean encontrado = false;
-        if (n != null&& !encontrado) {
-            if (n.getIzq() != null && n.getIzq().getElem() == patron.recuperar(i)) {
-                encontrado = patronAux(n.getIzq(), patron, i + 1);
-                System.out.println("entro izq "+i);
-            }
-            if (!encontrado && n.getDer() != null && n.getDer().getElem() == patron.recuperar(i)) {
-                encontrado = patronAux(n.getDer(), patron, i + 1);
-                System.out.println("entro der "+i);
-            }
-            if (i == patron.longitud() && n.getIzq() == null && n.getDer() == null) {
-                encontrado = true;
+    public boolean verificarPatron(Lista patron) {
+        boolean existePatron = false;
+        if (this.raiz != null) {
+            existePatron = verificarPatronAux(patron, this.raiz, 1);
+        }
+        return existePatron;
+    }
+
+    private boolean verificarPatronAux(Lista patron, NodoArbol nodo, int i) {
+        boolean resultado = false;
+        if(nodo != null && i <= patron.longitud()) {
+            if(patron.recuperar(i).equals(nodo.getElem())) {
+                if(nodo.getIzq() == null && nodo.getDer() == null && i == patron.longitud()) {
+                    resultado = true;
+                }
+                if(!resultado && nodo.getIzq() != null) {
+                    resultado = verificarPatronAux(patron, nodo.getIzq(), i + 1);
+                }
+                if(!resultado && nodo.getDer() != null) {
+                    resultado = verificarPatronAux(patron, nodo.getDer(), i + 1);
+                }
             }
         }
-        return encontrado;
+        return resultado;
     }
     public void compHijos(){
         completarHijos(raiz);

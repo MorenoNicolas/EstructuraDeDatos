@@ -14,11 +14,12 @@ public class testArboles {
         arbol.insertar('w','c',false);
         arbol.insertar('z','f',true);
 
-        System.out.println(arbol.toString());
-        arbol.compHijos();
-        System.out.println(arbol.toString());
+        lis.insertar('a', 1);
+        lis.insertar('b', 2);
+        lis.insertar('d', 3);
+        //lis.insertar('w', 4);
 
-
+        System.out.println(arbol.verificarPatron(lis));
         
     }
 }
