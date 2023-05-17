@@ -252,4 +252,31 @@ public class ArbolGen {
             } 
         }
     }
+    // public ArbolGen clone() {
+    //     /* Genera y devuelve un arbol generico que es equivalente (igual estructura
+    //     y contenido de los nodos) que el arbol original */
+    //     ArbolGen arbolClon = new ArbolGen();
+    //     if (this.raiz != null) {
+    //         arbolClon.raiz = new NodoGen(this.raiz.getElem());
+    //         cloneAux22(this.raiz, arbolClon.raiz);
+    //     }
+    //     return arbolClon;
+    // }
+
+    // private void cloneAux22(NodoGen nodoOriginal, NodoGen nodoClon) {
+    //     if (nodoOriginal != null) {
+    //         if (nodoOriginal.getHijoIzq() != null) {
+    //             nodoClon.setHijoIzq(new NodoGen(nodoOriginal.getHijoIzq().getElem()));
+    //             NodoGen aux1 = nodoOriginal.getHijoIzq();
+    //             NodoGen aux2 = nodoClon.getHijoIzq();
+    //             while (aux1.getHermanoDer() != null) {
+    //                 aux2.setHermanoDer(new NodoGen(aux1.getHermanoDer().getElem()));
+    //                 aux1 = aux1.getHermanoDer();
+    //                 aux2 = aux2.getHermanoDer();
+    //             }
+    //         }
+    //         cloneAux(nodoOriginal.getHijoIzq(), nodoClon.getHijoIzq());
+    //         cloneAux(nodoOriginal.getHermanoDer(), nodoClon.getHermanoDer());
+    //     }
+    // }
 }

@@ -13,6 +13,6 @@ public class testEjerciciosArbol {
         arbol.insertar(5, 3);
         arbol.insertar(6, 3);
 
-        System.out.println(arbol.clonar());
+        System.out.println(arbol.clone().toString());
     }
 }
