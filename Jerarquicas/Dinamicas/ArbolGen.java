@@ -252,4 +252,81 @@ public class ArbolGen {
             } 
         }
     }
+    public Lista ancestros(Object elem){
+        Lista ls = new Lista();
+        ancestrosAux(raiz, elem, ls);
+        return ls;
+    }
+    private boolean ancestrosAux(NodoGen n, Object elem, Lista ls){
+        boolean retorno = false;    
+        if(n!=null&&!retorno){
+            if(n.getElem().equals(elem)){
+                retorno = true;
+            }else{
+                if(n.getHijoIzq()!=null){
+                    
+                    retorno = ancestrosAux(n.getHijoIzq(), elem, ls);
+                    NodoGen hijo = n.getHijoIzq().getHermanoDer();
+                    while(hijo!=null){
+
+                        if (hijo.getElem().equals(elem)) {
+                            ls.insertar(n.getElem(), ls.longitud()+1);
+                        } else if (hijo.getHijoIzq() != null) {
+                            retorno = ancestrosAux(hijo, elem, ls);
+                        }
+                        hijo=hijo.getHermanoDer();
+                        //NO ANDA
+                    }
+                    
+                }
+            }
+        }
+        return retorno;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public Lista ancestros2(Object elemento) {
+        /* Si el elemento se encuentra en el arbol, devuelve una lista con el camino
+        desde la raiz hasta dicho elemento (es decir, con los ancestros del elemento).
+        Si el elemento no esta en el arbol devuelve la lista vacia */
+        Lista listaAncestros = new Lista();
+        if (this.raiz != null) {
+            ancestrosAux2(this.raiz, listaAncestros, elemento);
+        }
+        return listaAncestros;
+    }
+
+    private boolean ancestrosAux2(NodoGen nodo, Lista lista, Object elemento) {
+        boolean encontrado = false;
+        if (nodo != null) {
+            if (nodo.getElem().equals(elemento)) {
+                encontrado = true;
+            }
+            if (!encontrado) {
+                encontrado = ancestrosAux2(nodo.getHijoIzq(), lista, elemento);
+            }
+            if (!encontrado) {
+                NodoGen aux = nodo.getHijoIzq();
+                while (aux != null && !encontrado) {
+                    encontrado = ancestrosAux2(aux, lista, elemento);
+                    aux = aux.getHermanoDer();
+                }
+            }
+            if (encontrado && (!nodo.getElem().equals(elemento))) {
+                lista.insertar(nodo.getElem(), lista.longitud() + 1);
+            }
+        }
+        return encontrado;
+    }
 }

@@ -6,13 +6,15 @@ public class testEjerciciosArbol {
     public static void main(String[] args) {
         ArbolGen arbol = new ArbolGen();
 
-        arbol.insertar(1, null);
-        arbol.insertar(2, 1);
-        arbol.insertar(3, 1);
-        arbol.insertar(4, 2);
-        arbol.insertar(5, 3);
-        arbol.insertar(6, 3);
+        arbol.insertar('A', null);
+        arbol.insertar('B', 'A');
+        arbol.insertar('C', 'A');
+        arbol.insertar('D', 'A');
+        arbol.insertar('E', 'B');
+        arbol.insertar('F', 'B');
+        arbol.insertar('G', 'B');
+        arbol.insertar('H', 'D');
 
-        System.out.println(arbol.clonar().toString());
+        System.out.println(arbol.ancestros('H').toString());
     }
 }

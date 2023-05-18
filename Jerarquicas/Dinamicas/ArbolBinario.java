@@ -177,7 +177,6 @@ public class ArbolBinario {
         ancestrosAux2(raiz, m, unaLista);
         return unaLista;
     }
-   //mmm
     private boolean ancestrosAux2(NodoArbol nAux, Object buscado, Lista unaLista){
         boolean encontrado = false;
         if(nAux!=null){
