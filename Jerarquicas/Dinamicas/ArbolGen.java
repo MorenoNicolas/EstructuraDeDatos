@@ -264,20 +264,15 @@ public class ArbolGen {
                 retorno = true;
             }else{
                 if(n.getHijoIzq()!=null){
-                    
-                    retorno = ancestrosAux(n.getHijoIzq(), elem, ls);
-                    NodoGen hijo = n.getHijoIzq().getHermanoDer();
-                    while(hijo!=null){
-
-                        if (hijo.getElem().equals(elem)) {
-                            ls.insertar(n.getElem(), ls.longitud()+1);
-                        } else if (hijo.getHijoIzq() != null) {
-                            retorno = ancestrosAux(hijo, elem, ls);
-                        }
+                    NodoGen hijo = n.getHijoIzq();
+                    while(hijo!=null&&!retorno){ 
+                        retorno = ancestrosAux(hijo, elem, ls);
                         hijo=hijo.getHermanoDer();
                         //NO ANDA
                     }
-                    
+                    if(retorno){
+                        ls.insertar(n.getElem(), 1);
+                    }
                 }
             }
         }
@@ -295,7 +290,7 @@ public class ArbolGen {
 
 
 
-
+    //ANDA
     public Lista ancestros2(Object elemento) {
         /* Si el elemento se encuentra en el arbol, devuelve una lista con el camino
         desde la raiz hasta dicho elemento (es decir, con los ancestros del elemento).
