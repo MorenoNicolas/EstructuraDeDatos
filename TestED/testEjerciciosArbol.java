@@ -15,7 +15,8 @@ public class testEjerciciosArbol {
         arbol.insertar('G', 'B');
         arbol.insertar('H', 'D');
 
-        System.out.println(arbol.nivel('H'));
+        System.out.println(arbol.toString());
+        System.out.println(arbol.clonar());
         
     }
 }

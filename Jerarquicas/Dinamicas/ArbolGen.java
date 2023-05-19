@@ -276,7 +276,30 @@ public class ArbolGen {
         return retorno;
     }
 
-    
+    public boolean sonFrontera(Lista unaLista){
+        boolean esta = true;
+        if(!esVacio()){
+            esta = fronteraAux(raiz, unaLista);
+        }
+        return esta;
+    }
+
+    private boolean fronteraAux(NodoGen n, Lista ls){
+        boolean retorno = false;    
+        if(n!=null&&!retorno){
+                if(n.getHijoIzq()!=null){
+                    NodoGen hijo = n.getHijoIzq();
+                    while(hijo!=null&&!retorno){ 
+                        retorno = fronteraAux(hijo, ls);
+                        hijo=hijo.getHermanoDer();
+                    }
+                }else{
+                        
+            }
+        }
+        return retorno;
+
+    }
 
 
 
