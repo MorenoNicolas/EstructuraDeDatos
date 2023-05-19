@@ -65,20 +65,18 @@ public class Lista {
         return elemento;
     }
 
-    public int localizar(Object elem) {
-        int posicion = -1, i = 1;
-        boolean resultado = false;
-        Nodo aux = cabecera;
-        while (i < longitud() && !resultado && aux != null) {
-            resultado = aux.getElem().equals(elem);
-            if (resultado) {
-                posicion = i;
-            } else {
-                aux = aux.getEnlace();
-                i++;
-            }
+    public int localizar(Object obj){
+        int retorna= -1;
+        int i = 0;
+        Nodo temp = cabecera;
+        while (retorna == -1 && i < longitud()){
+            if(temp.getElem().equals(obj))
+            retorna = i;
+
+            i++;
+            temp = temp.getEnlace();
         }
-        return posicion;
+        return retorna+1;
     }
 
     public void vaciar() {

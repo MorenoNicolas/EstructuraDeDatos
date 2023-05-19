@@ -1,4 +1,5 @@
 package Dinamicas;
+
 public class ArbolGen {
     NodoGen raiz;
 
@@ -187,16 +188,18 @@ public class ArbolGen {
             }
         }
     }
-    public Lista listarPosOrden(){
+
+    public Lista listarPosOrden() {
         Lista ls = new Lista();
         listarPosAux(raiz, ls);
         return ls;
     }
-    private void listarPosAux(NodoGen n, Lista ls){
-        if(n!=null){
-            if(n.getHijoIzq()!=null){
+
+    private void listarPosAux(NodoGen n, Lista ls) {
+        if (n != null) {
+            if (n.getHijoIzq() != null) {
                 NodoGen hijo = n.getHijoIzq();
-                while(hijo!=null){
+                while (hijo != null) {
                     listarPosAux(hijo, ls);
                     hijo = hijo.getHermanoDer();
                 }
@@ -204,22 +207,24 @@ public class ArbolGen {
             ls.insertar(n.getElem(), ls.longitud() + 1);
         }
     }
-    public Lista listarPorNiveles(){
+
+    public Lista listarPorNiveles() {
         Lista ls = new Lista();
         listarNivelAux(raiz, ls);
         return ls;
     }
-    private void listarNivelAux(NodoGen n, Lista ls){
+
+    private void listarNivelAux(NodoGen n, Lista ls) {
         Cola q = new Cola();
         q.poner(n);
-        if(raiz!=null){
-            while(!q.esVacia()){
-                NodoGen nodo = (NodoGen)q.obtenerFrente();
+        if (raiz != null) {
+            while (!q.esVacia()) {
+                NodoGen nodo = (NodoGen) q.obtenerFrente();
                 q.sacar();
-                ls.insertar(nodo.getElem(), ls.longitud()+1);
-                if(nodo.getHijoIzq()!=null){
+                ls.insertar(nodo.getElem(), ls.longitud() + 1);
+                if (nodo.getHijoIzq() != null) {
                     NodoGen hijo = nodo.getHijoIzq();
-                    while(hijo!=null){
+                    while (hijo != null) {
                         q.poner(hijo);
                         hijo = hijo.getHermanoDer();
                     }
@@ -228,16 +233,17 @@ public class ArbolGen {
         }
     }
 
-    public ArbolGen clonar(){
+    public ArbolGen clonar() {
         ArbolGen arbolito = new ArbolGen();
-        if(!esVacio()){
+        if (!esVacio()) {
             arbolito.raiz = new NodoGen(null);
             cloneAux(this.raiz, arbolito.raiz);
         }
         return arbolito;
     }
-    private void cloneAux(NodoGen nodo, NodoGen nodoClon){
-        if(nodo!=null){
+
+    private void cloneAux(NodoGen nodo, NodoGen nodoClon) {
+        if (nodo != null) {
             nodoClon.setElem(nodo.getElem());
             if (nodo.getHijoIzq() != null) {
                 nodoClon.setHijoIzq(new NodoGen(null));
@@ -246,28 +252,29 @@ public class ArbolGen {
             if (nodo.getHermanoDer() != null) {
                 nodoClon.setHermanoDer(new NodoGen(null));
                 cloneAux(nodo.getHermanoDer(), nodoClon.getHermanoDer());
-            } 
+            }
         }
     }
-    public Lista ancestros(Object elem){
+
+    public Lista ancestros(Object elem) {
         Lista ls = new Lista();
         ancestrosAux(raiz, elem, ls);
         return ls;
     }
-    private boolean ancestrosAux(NodoGen n, Object elem, Lista ls){
-        boolean retorno = false;    
-        if(n!=null&&!retorno){
-            if(n.getElem().equals(elem)){
+
+    private boolean ancestrosAux(NodoGen n, Object elem, Lista ls) {
+        boolean retorno = false;
+        if (n != null && !retorno) {
+            if (n.getElem().equals(elem)) {
                 retorno = true;
-            }else{
-                if(n.getHijoIzq()!=null){
+            } else {
+                if (n.getHijoIzq() != null) {
                     NodoGen hijo = n.getHijoIzq();
-                    while(hijo!=null&&!retorno){ 
+                    while (hijo != null && !retorno) {
                         retorno = ancestrosAux(hijo, elem, ls);
-                        hijo=hijo.getHermanoDer();
-                        //NO ANDA
+                        hijo = hijo.getHermanoDer();
                     }
-                    if(retorno){
+                    if (retorno) {
                         ls.insertar(n.getElem(), 1);
                     }
                 }
@@ -276,46 +283,43 @@ public class ArbolGen {
         return retorno;
     }
 
-    public boolean sonFrontera(Lista unaLista){
+    public boolean sonFrontera(Lista unaLista) {
         boolean esta = true;
-        if(!esVacio()){
+        if (!esVacio()) {
             esta = fronteraAux(raiz, unaLista);
         }
         return esta;
     }
 
-    private boolean fronteraAux(NodoGen n, Lista ls){
-        boolean retorno = false;    
-        if(n!=null&&!retorno){
-                if(n.getHijoIzq()!=null){
-                    NodoGen hijo = n.getHijoIzq();
-                    while(hijo!=null&&!retorno){ 
-                        retorno = fronteraAux(hijo, ls);
-                        hijo=hijo.getHermanoDer();
-                    }
-                }else{
-                        
+    private boolean fronteraAux(NodoGen n, Lista ls) {
+        boolean retorno = true;
+        if (n != null && retorno) {
+            if (n.getHijoIzq() != null) {
+                NodoGen hijo = n.getHijoIzq();
+                while (hijo != null && retorno) {
+                    retorno = fronteraAux(hijo, ls);
+                    hijo = hijo.getHermanoDer();
+                }
+            } else {
+                if (ls.localizar(n.getElem()) > 0 ) {
+                    retorno = true;
+                } else {
+                    retorno = false;
+                }
             }
         }
         return retorno;
 
     }
 
-
-
-
-
-
-
-
-
-
-
-    //ANDA
+    // ANDA
     public Lista ancestros2(Object elemento) {
-        /* Si el elemento se encuentra en el arbol, devuelve una lista con el camino
-        desde la raiz hasta dicho elemento (es decir, con los ancestros del elemento).
-        Si el elemento no esta en el arbol devuelve la lista vacia */
+        /*
+         * Si el elemento se encuentra en el arbol, devuelve una lista con el camino
+         * desde la raiz hasta dicho elemento (es decir, con los ancestros del
+         * elemento).
+         * Si el elemento no esta en el arbol devuelve la lista vacia
+         */
         Lista listaAncestros = new Lista();
         if (this.raiz != null) {
             ancestrosAux2(this.raiz, listaAncestros, elemento);
