@@ -85,9 +85,8 @@ public class ArbolGen {
             if (n.getElem().equals(obj)) {
                 nivelRetorna = nivel;
             } else {
-                nivelRetorna = nivelAux(n.getHijoIzq(), nivel + 1, obj);
                 if (nivelRetorna == -1 && n.getHijoIzq() != null) {
-                    NodoGen hijosDer = n.getHijoIzq().getHermanoDer();
+                    NodoGen hijosDer = n.getHijoIzq();
                     while (hijosDer != null && nivelRetorna == -1) {
                         nivelRetorna = nivelAux(hijosDer, nivel + 1, obj);
                         hijosDer = hijosDer.getHermanoDer();
@@ -180,8 +179,7 @@ public class ArbolGen {
         if (n != null) {
             ls.insertar(n.getElem(), ls.longitud() + 1);
             if (n.getHijoIzq() != null) {
-                listarPreAux(n.getHijoIzq(), ls);
-                NodoGen hijo = n.getHijoIzq().getHermanoDer();
+                NodoGen hijo = n.getHijoIzq();
                 while (hijo != null) {
                     listarPreAux(hijo, ls);
                     hijo = hijo.getHermanoDer();
@@ -197,8 +195,7 @@ public class ArbolGen {
     private void listarPosAux(NodoGen n, Lista ls){
         if(n!=null){
             if(n.getHijoIzq()!=null){
-                listarPosAux(n.getHijoIzq(), ls);
-                NodoGen hijo = n.getHijoIzq().getHermanoDer();
+                NodoGen hijo = n.getHijoIzq();
                 while(hijo!=null){
                     listarPosAux(hijo, ls);
                     hijo = hijo.getHermanoDer();
@@ -279,6 +276,7 @@ public class ArbolGen {
         return retorno;
     }
 
+    
 
 
 
