@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "testEjerciciosConjuntista",
+            "request": "launch",
+            "mainClass": "TestED.testEjerciciosConjuntista",
+            "projectName": "EstructuraDeDatos_905617a2"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

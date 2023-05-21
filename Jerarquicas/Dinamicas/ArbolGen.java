@@ -301,9 +301,7 @@ public class ArbolGen {
                     hijo = hijo.getHermanoDer();
                 }
             } else {
-                if (ls.localizar(n.getElem()) > 0 ) {
-                    retorno = true;
-                } else {
+                if (ls.localizar(n.getElem()) <= 0) {
                     retorno = false;
                 }
             }

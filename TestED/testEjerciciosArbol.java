@@ -9,13 +9,12 @@ public class testEjerciciosArbol {
         Lista lis = new Lista();
 
         //lis.insertar('A', 1);
-        
+        lis.insertar('B', 3);
         lis.insertar('H', 1);
         lis.insertar('F', 2);
         lis.insertar('E', 3);
         lis.insertar('G', 4);
-        lis.insertar('C', 3);
-        lis.insertar('A', 4);
+        lis.insertar('C', 5);
 
         
 
@@ -29,7 +28,8 @@ public class testEjerciciosArbol {
         arbol.insertar('H', 'D');
 
         System.out.println(arbol.sonFrontera(lis));
+
+        //System.out.println(lis.localizar('C'));
         
-        //System.out.println(lis.localizar('F'));
     }
 }
