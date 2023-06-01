@@ -98,20 +98,20 @@ public class ABB {
     public Lista listarRango(Comparable min, Comparable max) {
         Lista ls = new Lista();
         if (raiz != null) {
-            //listarRangoAux(ls, raiz, min, max);
+            listarRangoAux(ls, raiz, min, max);
         }
         return ls;
     }
-    // private void listarRangoAux(Lista ls, NodoABB n, Comparable min , Comparable max) {
-    //     if (n != null && n.getElem()<=max) {
-    //         System.out.println(n.getElem().compareTo(max));
-    //         listarAux(ls, n.getIzq());
-    //         if(n.getElem().compareTo(min)>=0){
-    //             ls.insertar(n.getElem(), ls.longitud() + 1);
-    //         }
-    //         listarAux(ls, n.getDer());
-    //     }
-    //}
+     private void listarRangoAux(Lista ls, NodoABB n, Comparable min , Comparable max) {
+         if (n != null && n.getElem().compareTo(max)<=0) {
+            listarRangoAux(ls, n.getIzq(), min, max);
+             if(n.getElem().compareTo(min)>=0){
+                 ls.insertar(n.getElem(), ls.longitud() + 1);
+             }
+             listarRangoAux(ls, n.getDer(), min, max);
+            }
+    }
+    
     public Comparable maximoElem(){
         NodoABB aux = raiz;
         while(aux.getDer()!=null){

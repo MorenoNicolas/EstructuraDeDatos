@@ -11,7 +11,6 @@ public class testEjerciciosConjuntista {
         arbol.insertar(12);
         arbol.insertar(6);
         arbol.insertar(2);
-        arbol.insertar(-3);
 
         arbol.insertar(5);
         arbol.insertar(19);
@@ -19,8 +18,7 @@ public class testEjerciciosConjuntista {
         arbol.insertar(90);
 
 
-        System.out.println(arbol.maximoElem());
-        System.out.println(arbol.minimoElem());
+        System.out.println(arbol.listarRango(6,20));
 
     }
 }
