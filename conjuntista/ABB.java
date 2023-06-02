@@ -66,14 +66,32 @@ public class ABB {
     public boolean eliminar(Comparable elem) {
         boolean exito = false;
         if (raiz != null) {
+            
             exito = eliminarAux(elem, raiz);
         }
         return exito;
     }
 
     private boolean eliminarAux(Comparable ele, NodoABB n) {
+        NodoABB nodoE = new NodoABB(null, null, null);
+        NodoABB nodoP = new NodoABB(null, null, null);
 
-        return false;
+        if(n!=null){
+            if(n.getDer().getElem().compareTo(ele)==0){
+                nodoP = n;
+                nodoE= n.getDer();
+            }else if(n.getIzq().getElem().compareTo(ele)==0){
+                nodoE = n.getIzq();
+                nodoP = n;
+            }
+            if(n.getElem().compareTo(ele) > 0){
+                eliminarAux(ele, n.getIzq());
+            }else{
+                eliminarAux(ele, n.getDer());
+            }
+            
+        }
+
     }
 
     public boolean esVacio() {
@@ -129,4 +147,3 @@ public class ABB {
         return minimo;
     }
 }
-7
