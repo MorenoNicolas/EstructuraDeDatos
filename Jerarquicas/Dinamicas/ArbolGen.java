@@ -384,7 +384,6 @@ public class ArbolGen {
     private void entreNivelesAux(NodoGen n, int niv1, int niv2, int nivel, Lista ls) {
 
         if (n != null && nivel <= niv2) {
-            
             if (n.getHijoIzq() != null) {
                 entreNivelesAux(n.getHijoIzq(), niv1, niv2, nivel+1 , ls);
             }
@@ -401,35 +400,4 @@ public class ArbolGen {
             }
         }
     }
-    // private int nivelAux(NodoGen n, int nivel, Object obj) {
-    // int nivelRetorna = -1;
-    // if (n != null) {
-    // if (n.getElem().equals(obj)) {
-    // nivelRetorna = nivel;
-    // } else {
-    // if (nivelRetorna == -1 && n.getHijoIzq() != null) {
-    // NodoGen hijosDer = n.getHijoIzq();
-    // while (hijosDer != null && nivelRetorna == -1) {
-    // nivelRetorna = nivelAux(hijosDer, nivel + 1, obj);
-    // hijosDer = hijosDer.getHermanoDer();
-    // }
-    // }
-    // }
-    // }
-    // return nivelRetorna;
-    // }
-
-    // private void listarInAux(NodoGen n, Lista ls) {
-    // if (n != null) {
-    // if (n.getHijoIzq() != null) {
-    // listarInAux(n.getHijoIzq(), ls);
-    // ls.insertar(n.getElem(), ls.longitud() + 1);
-    // NodoGen hijo = n.getHijoIzq().getHermanoDer();
-    // while (hijo != null) {
-    // listarInAux(hijo, ls);
-    // hijo = hijo.getHermanoDer();
-    // }
-    // }
-    // }
-    // }
 }

@@ -172,4 +172,37 @@ public class ABB {
         Comparable minimo = aux.getElem();
         return minimo;
     }
+    public void eliminarMinimo(){
+        NodoABB padre = raiz;
+        if(padre.getIzq()!=null){
+            NodoABB aux = raiz.getIzq();
+            while(aux.getIzq()!=null){
+                aux = aux.getIzq();
+            }
+            if(aux.getDer()!=null){
+                padre.setIzq(aux.getDer());
+            }else{
+                padre.setIzq(null);
+            }
+        }else if(padre.getDer()!=null){
+            raiz = padre.getDer();
+        }else{
+            raiz = null;
+        }
+    }
+    public ABB clonarParteInvertida(Comparable elem){
+        ABB clon = new ABB();
+        if(raiz!=null){
+            clon.raiz = raiz;
+            clon = invertidaAux(clon.raiz, raiz, elem, 0);
+        }
+        return clon;
+    }
+    private ABB invertidaAux(NodoABB nclon, NodoABB n, Comparable elem, int i){
+        if(n!=null){
+            if(n.getElem().compareTo(elem)==0){
+                
+            }
+        }
+    }
  }
