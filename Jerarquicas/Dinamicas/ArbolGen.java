@@ -312,12 +312,6 @@ public class ArbolGen {
 
     // ANDA
     public Lista ancestros2(Object elemento) {
-        /*
-         * Si el elemento se encuentra en el arbol, devuelve una lista con el camino
-         * desde la raiz hasta dicho elemento (es decir, con los ancestros del
-         * elemento).
-         * Si el elemento no esta en el arbol devuelve la lista vacia
-         */
         Lista listaAncestros = new Lista();
         if (this.raiz != null) {
             ancestrosAux2(this.raiz, listaAncestros, elemento);
@@ -347,4 +341,95 @@ public class ArbolGen {
         }
         return encontrado;
     }
+
+    public boolean verificarCamino(Lista ls) {
+        boolean retorno = false;
+        if (raiz != null) {
+            retorno = caminoAux(ls, raiz, 1);
+        }
+        return retorno;
+    }
+
+    private boolean caminoAux(Lista ls, NodoGen n, int i) {
+        boolean retorno = false;
+        if (n != null && i <= ls.longitud()) {
+            Object elemNodo = n.getElem();
+            Object elemLista = ls.recuperar(i);
+            if (elemNodo.equals(elemLista)) {
+                if (i == ls.longitud()) {
+                    retorno = true;
+                }
+                if (n.getHijoIzq() != null && !retorno) {
+                    i++;
+                    NodoGen hijo = n.getHijoIzq();
+                    while (hijo != null && !retorno) {
+                        retorno = caminoAux(ls, n, i);
+                        hijo = hijo.getHermanoDer();
+                    }
+                }
+            }
+        }
+        return retorno;
+    }
+
+    public Lista listarEntreNiveles(int niv1, int niv2) {
+        Lista ls = new Lista();
+        int nivel = 0;
+        if (raiz != null) {
+            entreNivelesAux(raiz, niv1, niv2, nivel, ls);
+        }
+        return ls;
+    }
+
+    private void entreNivelesAux(NodoGen n, int niv1, int niv2, int nivel, Lista ls) {
+
+        if (n != null && nivel <= niv2) {
+            
+            if (n.getHijoIzq() != null) {
+                entreNivelesAux(n.getHijoIzq(), niv1, niv2, nivel+1 , ls);
+            }
+                if (nivel >= niv1) {
+                ls.insertar(n.getElem(), ls.longitud() + 1);
+            }
+            if (n.getHijoIzq() != null){
+                NodoGen hijo = n.getHijoIzq().getHermanoDer();
+                while (hijo != null) {
+                    System.out.println(nivel);
+                    entreNivelesAux(hijo, niv1, niv2, nivel+1 , ls);
+                    hijo = hijo.getHermanoDer();
+                }
+            }
+        }
+    }
+    // private int nivelAux(NodoGen n, int nivel, Object obj) {
+    // int nivelRetorna = -1;
+    // if (n != null) {
+    // if (n.getElem().equals(obj)) {
+    // nivelRetorna = nivel;
+    // } else {
+    // if (nivelRetorna == -1 && n.getHijoIzq() != null) {
+    // NodoGen hijosDer = n.getHijoIzq();
+    // while (hijosDer != null && nivelRetorna == -1) {
+    // nivelRetorna = nivelAux(hijosDer, nivel + 1, obj);
+    // hijosDer = hijosDer.getHermanoDer();
+    // }
+    // }
+    // }
+    // }
+    // return nivelRetorna;
+    // }
+
+    // private void listarInAux(NodoGen n, Lista ls) {
+    // if (n != null) {
+    // if (n.getHijoIzq() != null) {
+    // listarInAux(n.getHijoIzq(), ls);
+    // ls.insertar(n.getElem(), ls.longitud() + 1);
+    // NodoGen hijo = n.getHijoIzq().getHermanoDer();
+    // while (hijo != null) {
+    // listarInAux(hijo, ls);
+    // hijo = hijo.getHermanoDer();
+    // }
+    // }
+    // }
+    // }
 }

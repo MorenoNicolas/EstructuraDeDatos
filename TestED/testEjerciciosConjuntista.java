@@ -11,14 +11,18 @@ public class testEjerciciosConjuntista {
         arbol.insertar(12);
         arbol.insertar(6);
         arbol.insertar(2);
-
         arbol.insertar(5);
+        arbol.insertar(1);
         arbol.insertar(19);
         arbol.insertar(20);
-        arbol.insertar(90);
+        arbol.insertar(11);
+        arbol.insertar(3);
 
 
-        System.out.println(arbol.listarRango(6,20));
+
+        System.out.println(arbol.listar());
+        arbol.eliminar(5);
+        System.out.println(arbol.listar());
 
     }
 }

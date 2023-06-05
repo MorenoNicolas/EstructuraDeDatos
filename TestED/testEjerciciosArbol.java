@@ -9,27 +9,29 @@ public class testEjerciciosArbol {
         Lista lis = new Lista();
 
         //lis.insertar('A', 1);
-        lis.insertar('B', 3);
-        lis.insertar('H', 1);
-        lis.insertar('F', 2);
-        lis.insertar('E', 3);
-        lis.insertar('G', 4);
-        lis.insertar('C', 5);
+        lis.insertar(20, 1);
+        lis.insertar(13, 2);
+        lis.insertar(12, 3);
+        //  lis.insertar(17, 4);
+        // lis.insertar('G', 4);
+        // lis.insertar('C', 5);
 
         
 
-        arbol.insertar('A', null);
-        arbol.insertar('B', 'A');
-        arbol.insertar('C', 'A');
-        arbol.insertar('D', 'A');
-        arbol.insertar('E', 'B');
-        arbol.insertar('F', 'B');
-        arbol.insertar('G', 'B');
-        arbol.insertar('H', 'D');
+        arbol.insertar(20, null);
+        arbol.insertar(13, 20);
+        arbol.insertar(54, 20);
+        arbol.insertar(15, 13);
+        arbol.insertar(12, 13);
+        arbol.insertar(11, 54);
+        arbol.insertar(27, 54);
+        arbol.insertar(4, 54);
+        arbol.insertar(17, 27);
 
-        System.out.println(arbol.sonFrontera(lis));
+        
+        //System.out.println(arbol.verificarCamino(lis));
+        System.out.println(arbol.listarEntreNiveles(1, 2).toString());
 
-        //System.out.println(lis.localizar('C'));
         
     }
 }

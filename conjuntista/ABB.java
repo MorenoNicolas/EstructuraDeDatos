@@ -66,33 +66,59 @@ public class ABB {
     public boolean eliminar(Comparable elem) {
         boolean exito = false;
         if (raiz != null) {
-            
-            exito = eliminarAux(elem, raiz);
+            exito = eliminarAux(elem, raiz, null);
         }
         return exito;
     }
 
-    private boolean eliminarAux(Comparable ele, NodoABB n) {
-        NodoABB nodoE = new NodoABB(null, null, null);
-        NodoABB nodoP = new NodoABB(null, null, null);
-
+    private boolean eliminarAux(Comparable ele, NodoABB n, NodoABB padre) {
+        
+        boolean encontrado = false;
         if(n!=null){
-            if(n.getDer().getElem().compareTo(ele)==0){
-                nodoP = n;
-                nodoE= n.getDer();
-            }else if(n.getIzq().getElem().compareTo(ele)==0){
-                nodoE = n.getIzq();
-                nodoP = n;
-            }
-            if(n.getElem().compareTo(ele) > 0){
-                eliminarAux(ele, n.getIzq());
-            }else{
-                eliminarAux(ele, n.getDer());
-            }
-            
+            if(encontrado == false){
+                if( n.getElem().compareTo(ele) == 0 ) {
+                    encontrarCaso(n, padre);
+                    encontrado = true;   
+                }
+                }
+                if(n.getElem().compareTo(ele) > 0){
+                    encontrado = eliminarAux(ele, n.getIzq(), n);
+                }else{
+                    encontrado = eliminarAux(ele, n.getDer(), n);
+                }     
         }
-
+        return encontrado;
     }
+    private void encontrarCaso(NodoABB nodoE, NodoABB nodoP ){
+    
+        if(nodoE.getDer()==null&&nodoE.getIzq()==null){
+            caso1(nodoE , nodoP);
+            System.out.println("caso1");
+        }else if(nodoE.getDer()!=null||nodoE.getIzq()!=null){
+            caso2(nodoE, nodoP);
+            System.out.println("caso2");
+        }else{
+            //encontrado = caso3(nodoE , nodoP);
+        }
+    }
+    private boolean caso1(NodoABB eliminar, NodoABB padre){
+        if(padre.getDer()==eliminar){
+            padre.setDer(null);
+        }else{
+            padre.setIzq(null);
+        }
+        return true;
+    }
+    private boolean caso2(NodoABB eliminar, NodoABB padre){
+        if (eliminar.getElem().compareTo(padre.getElem()) > 0) {
+            padre.setDer(eliminar.getDer());
+        } else {
+            padre.setIzq(eliminar.getIzq());
+        }
+        return true;
+    }
+    
+
 
     public boolean esVacio() {
         return raiz == null;
@@ -146,4 +172,4 @@ public class ABB {
         Comparable minimo = aux.getElem();
         return minimo;
     }
-}
+ }
