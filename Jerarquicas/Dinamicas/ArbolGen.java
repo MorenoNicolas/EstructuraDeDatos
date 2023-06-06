@@ -371,7 +371,7 @@ public class ArbolGen {
         }
         return retorno;
     }
-
+    
     public Lista listarEntreNiveles(int niv1, int niv2) {
         Lista ls = new Lista();
         int nivel = 0;

@@ -72,44 +72,47 @@ public class ABB {
     }
 
     private boolean eliminarAux(Comparable ele, NodoABB n, NodoABB padre) {
-        
+
         boolean encontrado = false;
-        if(n!=null){
-            if(encontrado == false){
-                if( n.getElem().compareTo(ele) == 0 ) {
+        if (n != null) {
+            if (encontrado == false) {
+                if (n.getElem().compareTo(ele) == 0) {
                     encontrarCaso(n, padre);
-                    encontrado = true;   
+                    encontrado = true;
                 }
-                }
-                if(n.getElem().compareTo(ele) > 0){
-                    encontrado = eliminarAux(ele, n.getIzq(), n);
-                }else{
-                    encontrado = eliminarAux(ele, n.getDer(), n);
-                }     
+            }
+            if (n.getElem().compareTo(ele) > 0) {
+                encontrado = eliminarAux(ele, n.getIzq(), n);
+            } else {
+                encontrado = eliminarAux(ele, n.getDer(), n);
+            }
         }
         return encontrado;
     }
-    private void encontrarCaso(NodoABB nodoE, NodoABB nodoP ){
-    
-        if(nodoE.getDer()==null&&nodoE.getIzq()==null){
-            caso1(nodoE , nodoP);
+
+    private void encontrarCaso(NodoABB nodoE, NodoABB nodoP) {
+
+        if (nodoE.getDer() == null && nodoE.getIzq() == null) {
+            caso1(nodoE, nodoP);
             System.out.println("caso1");
-        }else if(nodoE.getDer()!=null||nodoE.getIzq()!=null){
+        } else if (nodoE.getDer() != null || nodoE.getIzq() != null) {
             caso2(nodoE, nodoP);
             System.out.println("caso2");
-        }else{
-            //encontrado = caso3(nodoE , nodoP);
+        } else {
+            // encontrado = caso3(nodoE , nodoP);
         }
     }
-    private boolean caso1(NodoABB eliminar, NodoABB padre){
-        if(padre.getDer()==eliminar){
+
+    private boolean caso1(NodoABB eliminar, NodoABB padre) {
+        if (padre.getDer() == eliminar) {
             padre.setDer(null);
-        }else{
+        } else {
             padre.setIzq(null);
         }
         return true;
     }
-    private boolean caso2(NodoABB eliminar, NodoABB padre){
+
+    private boolean caso2(NodoABB eliminar, NodoABB padre) {
         if (eliminar.getElem().compareTo(padre.getElem()) > 0) {
             padre.setDer(eliminar.getDer());
         } else {
@@ -117,8 +120,6 @@ public class ABB {
         }
         return true;
     }
-    
-
 
     public boolean esVacio() {
         return raiz == null;
@@ -139,6 +140,7 @@ public class ABB {
             listarAux(ls, n.getDer());
         }
     }
+
     public Lista listarRango(Comparable min, Comparable max) {
         Lista ls = new Lista();
         if (raiz != null) {
@@ -146,63 +148,126 @@ public class ABB {
         }
         return ls;
     }
-     private void listarRangoAux(Lista ls, NodoABB n, Comparable min , Comparable max) {
-         if (n != null && n.getElem().compareTo(max)<=0) {
+
+    private void listarRangoAux(Lista ls, NodoABB n, Comparable min, Comparable max) {
+        if (n != null && n.getElem().compareTo(max) <= 0) {
             listarRangoAux(ls, n.getIzq(), min, max);
-             if(n.getElem().compareTo(min)>=0){
-                 ls.insertar(n.getElem(), ls.longitud() + 1);
-             }
-             listarRangoAux(ls, n.getDer(), min, max);
+            if (n.getElem().compareTo(min) >= 0) {
+                ls.insertar(n.getElem(), ls.longitud() + 1);
             }
+            listarRangoAux(ls, n.getDer(), min, max);
+        }
     }
-    
-    public Comparable maximoElem(){
+
+    public Comparable maximoElem() {
         NodoABB aux = raiz;
-        while(aux.getDer()!=null){
+        while (aux.getDer() != null) {
             aux = aux.getDer();
         }
         Comparable maximo = aux.getElem();
         return maximo;
     }
-    public Comparable minimoElem(){
+
+    public Comparable minimoElem() {
         NodoABB aux = raiz;
-        while(aux.getIzq()!=null){
+        while (aux.getIzq() != null) {
             aux = aux.getIzq();
         }
         Comparable minimo = aux.getElem();
         return minimo;
     }
-    public void eliminarMinimo(){
+
+    public void eliminarMinimo() {
         NodoABB padre = raiz;
-        if(padre.getIzq()!=null){
+        if (padre.getIzq() != null) {
             NodoABB aux = raiz.getIzq();
-            while(aux.getIzq()!=null){
+            while (aux.getIzq() != null) {
                 aux = aux.getIzq();
             }
-            if(aux.getDer()!=null){
+            if (aux.getDer() != null) {
                 padre.setIzq(aux.getDer());
-            }else{
+            } else {
                 padre.setIzq(null);
             }
-        }else if(padre.getDer()!=null){
+        } else if (padre.getDer() != null) {
             raiz = padre.getDer();
-        }else{
+        } else {
             raiz = null;
         }
     }
     public ABB clonarParteInvertida(Comparable elem){
-        ABB clon = new ABB();
+        ABB arbolClon = new ABB();
         if(raiz!=null){
-            clon.raiz = raiz;
-            clon = invertidaAux(clon.raiz, raiz, elem, 0);
+            NodoABB encontrado = buscarNodo(raiz, elem);
+            if(encontrado!=null){
+                arbolClon.raiz = new NodoABB(encontrado.getElem(), null, null);
+                
+                invertirAux(arbolClon.raiz, encontrado);
+            }
         }
-        return clon;
+        return arbolClon;
     }
-    private ABB invertidaAux(NodoABB nclon, NodoABB n, Comparable elem, int i){
+    private NodoABB buscarNodo(NodoABB n, Comparable elem){
+        NodoABB retorno = new NodoABB(null, null, null);
         if(n!=null){
             if(n.getElem().compareTo(elem)==0){
-                
+                retorno = n;
+            }else{
+                if(n.getElem().compareTo(elem)<0){
+                    retorno = buscarNodo(n.getDer(), elem);
+                }else{
+                    retorno = buscarNodo(n.getIzq(), elem);
+                }
+            }
+        }
+        return retorno;
+    }
+    private void invertirAux(NodoABB clon, NodoABB n){
+        if(n!=null){
+            if(n.getDer()!=null){
+                clon.setIzq(new NodoABB(n.getDer().getElem(), null, null));
+                invertirAux(clon.getIzq(), n.getDer());
+            } 
+            if(n.getIzq()!=null){
+                clon.setDer(new NodoABB(n.getIzq().getElem(), null, null));
+                invertirAux(clon.getDer(), n.getIzq());
+
             }
         }
     }
- }
+    
+    
+    public String toString() {
+        String toString = toStringPR(this.raiz);
+        return toString;
+    }
+
+    private String toStringPR(NodoABB nodo) {
+        String toString = "Arbol vacio";
+        if (nodo != null) {
+            toString = nodo.getElem().toString();
+            NodoABB hijoIzq = nodo.getIzq();
+            NodoABB hijoDer = nodo.getDer();
+            if (hijoIzq != null) {
+                toString = toString + ", H.I: " + hijoIzq.getElem().toString();
+
+            } else {
+                toString = toString + ", H.I: -";
+            }
+            if (hijoDer != null) {
+                toString = toString + ", H.D: " + hijoDer.getElem().toString() + "\n";
+            } else {
+                toString = toString + ", H.D: -\n";
+            }
+
+            if (hijoIzq != null) {
+                toString = toString + toStringPR(hijoIzq);
+            }
+
+            if (hijoDer != null) {
+                toString = toString + toStringPR(hijoDer);
+            }
+        }
+        return toString;
+    }
+}
