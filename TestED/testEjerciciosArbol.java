@@ -30,9 +30,8 @@ public class testEjerciciosArbol {
 
         
         //System.out.println(arbol.verificarCamino(lis));
-        System.out.println(arbol.listarPorNiveles());
         
-        System.out.println(arbol.verificarCamino(lis));
+        arbol.insertarEnPos(6, 15, 0);
 
 
 

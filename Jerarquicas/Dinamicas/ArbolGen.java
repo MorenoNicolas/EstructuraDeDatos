@@ -497,4 +497,35 @@ public class ArbolGen {
         }
         return retorno;
     }
+    public void insertarEnPos(Object elem, Object padre, int pos){
+        
+        if(raiz!=null&&pos>=0){
+            NodoGen nodoP = obtenerNodo(raiz, padre);
+            System.out.println(obtenerNodo(raiz, padre).getElem());
+        }
+
+    }
+    private NodoGen buscarNodo(NodoGen n, Object padre){
+        NodoGen retorno = new NodoGen(null);
+        if(n!=null){
+            if(n.getElem()==padre){
+                retorno = n;
+            }else{
+                if(n.getHijoIzq()!=null){
+                    NodoGen hijo = n.getHijoIzq();
+                    while(hijo!=null){
+                        if(hijo.getElem()==padre){
+                            retorno = hijo;
+                        }else{
+                            retorno = buscarNodo(hijo, padre);
+                        }
+                            hijo = hijo.getHermanoDer();
+                       
+                    }
+                }
+            }
+        }
+        return retorno;
+    }
+
 }

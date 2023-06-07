@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "testEjerciciosArbol",
+            "request": "launch",
+            "mainClass": "TestED.testEjerciciosArbol",
+            "projectName": "EstructuraDeDatos_8dd6be8c"
+        },
+        {
+            "type": "java",
             "name": "testEjerciciosConjuntista",
             "request": "launch",
             "mainClass": "TestED.testEjerciciosConjuntista",
