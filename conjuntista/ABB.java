@@ -195,48 +195,48 @@ public class ABB {
             raiz = null;
         }
     }
-    public ABB clonarParteInvertida(Comparable elem){
+
+    public ABB clonarParteInvertida(Comparable elem) {
         ABB arbolClon = new ABB();
-        if(raiz!=null){
+        if (raiz != null) {
             NodoABB encontrado = buscarNodo(raiz, elem);
-            if(encontrado!=null){
+            if (encontrado != null) {
                 arbolClon.raiz = new NodoABB(encontrado.getElem(), null, null);
-                
                 invertirAux(arbolClon.raiz, encontrado);
             }
         }
         return arbolClon;
     }
-    private NodoABB buscarNodo(NodoABB n, Comparable elem){
+
+    private NodoABB buscarNodo(NodoABB n, Comparable elem) {
         NodoABB retorno = new NodoABB(null, null, null);
-        if(n!=null){
-            if(n.getElem().compareTo(elem)==0){
+        if (n != null) {
+            if (n.getElem().compareTo(elem) == 0) {
                 retorno = n;
-            }else{
-                if(n.getElem().compareTo(elem)<0){
+            } else {
+                if (n.getElem().compareTo(elem) < 0) {
                     retorno = buscarNodo(n.getDer(), elem);
-                }else{
+                } else {
                     retorno = buscarNodo(n.getIzq(), elem);
                 }
             }
         }
         return retorno;
     }
-    private void invertirAux(NodoABB clon, NodoABB n){
-        if(n!=null){
-            if(n.getDer()!=null){
+
+    private void invertirAux(NodoABB clon, NodoABB n) {
+        if (n != null) {
+            if (n.getDer() != null) {
                 clon.setIzq(new NodoABB(n.getDer().getElem(), null, null));
                 invertirAux(clon.getIzq(), n.getDer());
-            } 
-            if(n.getIzq()!=null){
+            }
+            if (n.getIzq() != null) {
                 clon.setDer(new NodoABB(n.getIzq().getElem(), null, null));
                 invertirAux(clon.getDer(), n.getIzq());
-
             }
         }
     }
-    
-    
+
     public String toString() {
         String toString = toStringPR(this.raiz);
         return toString;
@@ -269,5 +269,24 @@ public class ABB {
             }
         }
         return toString;
+    }
+
+    public Lista listarMayorIgual(Comparable elem) {
+        Lista ls = new Lista();
+        if (raiz != null) {
+            listarMayorAux(raiz, elem, ls);
+        }
+        return ls;
+    }
+    private void listarMayorAux(NodoABB n, Comparable elem, Lista ls) {
+        if (n != null) {
+            listarMayorAux(n.getDer(), elem, ls);
+            if (n.getElem().compareTo(elem) >= 0) {
+                ls.insertar(n.getElem(), ls.longitud()+1);
+            }
+            if (n.getElem().compareTo(elem) > 0) {
+                listarMayorAux(n.getIzq(), elem, ls);
+            }
+        }
     }
 }

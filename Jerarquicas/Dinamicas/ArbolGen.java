@@ -342,36 +342,36 @@ public class ArbolGen {
         return encontrado;
     }
 
-    public boolean verificarCamino(Lista ls) {
-        boolean retorno = false;
-        if (raiz != null) {
-            retorno = caminoAux(ls, raiz, 1);
-        }
-        return retorno;
-    }
+    // public boolean verificarCamino(Lista ls) {
+    // boolean retorno = false;
+    // if (raiz != null) {
+    // retorno = caminoAux(ls, raiz, 1);
+    // }
+    // return retorno;
+    // }
 
-    private boolean caminoAux(Lista ls, NodoGen n, int i) {
-        boolean retorno = false;
-        if (n != null && i <= ls.longitud()) {
-            Object elemNodo = n.getElem();
-            Object elemLista = ls.recuperar(i);
-            if (elemNodo.equals(elemLista)) {
-                if (i == ls.longitud()) {
-                    retorno = true;
-                }
-                if (n.getHijoIzq() != null && !retorno) {
-                    i++;
-                    NodoGen hijo = n.getHijoIzq();
-                    while (hijo != null && !retorno) {
-                        retorno = caminoAux(ls, n, i);
-                        hijo = hijo.getHermanoDer();
-                    }
-                }
-            }
-        }
-        return retorno;
-    }
-    
+    // private boolean caminoAux(Lista ls, NodoGen n, int i) {
+    // boolean retorno = false;
+    // if (n != null && i <= ls.longitud()) {
+    // Object elemNodo = n.getElem();
+    // Object elemLista = ls.recuperar(i);
+    // if (elemNodo.equals(elemLista)) {
+    // if (i == ls.longitud()) {
+    // retorno = true;
+    // }
+    // if (n.getHijoIzq() != null && !retorno) {
+    // i++;
+    // NodoGen hijo = n.getHijoIzq();
+    // while (hijo != null && !retorno) {
+    // retorno = caminoAux(ls, n, i);
+    // hijo = hijo.getHermanoDer();
+    // }
+    // }
+    // }
+    // }
+    // return retorno;
+    // }
+
     public Lista listarEntreNiveles(int niv1, int niv2) {
         Lista ls = new Lista();
         int nivel = 0;
@@ -385,19 +385,116 @@ public class ArbolGen {
 
         if (n != null && nivel <= niv2) {
             if (n.getHijoIzq() != null) {
-                entreNivelesAux(n.getHijoIzq(), niv1, niv2, nivel+1 , ls);
+                entreNivelesAux(n.getHijoIzq(), niv1, niv2, nivel + 1, ls);
             }
-                if (nivel >= niv1) {
+            if (nivel >= niv1) {
                 ls.insertar(n.getElem(), ls.longitud() + 1);
             }
-            if (n.getHijoIzq() != null){
+            if (n.getHijoIzq() != null) {
                 NodoGen hijo = n.getHijoIzq().getHermanoDer();
                 while (hijo != null) {
                     System.out.println(nivel);
-                    entreNivelesAux(hijo, niv1, niv2, nivel+1 , ls);
+                    entreNivelesAux(hijo, niv1, niv2, nivel + 1, ls);
                     hijo = hijo.getHermanoDer();
                 }
             }
         }
+    }
+
+    public void eliminar(Object elem) {
+        if (raiz != null) {
+            if (raiz.getElem() == elem) {
+                raiz = null;
+            } else {
+                eliminarConDescendientesAux(raiz, elem);
+            }
+        }
+    }
+
+    private boolean eliminarConDescendientesAux(NodoGen nodo, Object obj) {
+        boolean esAnterior = false;
+        if (nodo != null) {
+            int caso = -1; // caso 0 hijIzq , caso 1 her
+            if (nodo.getElem().equals(obj)) {
+                esAnterior = true;
+            } else {
+                esAnterior = eliminarConDescendientesAux(nodo.getHijoIzq(), obj);
+                if (esAnterior) {
+                    caso = 0;
+                } else {
+                    esAnterior = eliminarConDescendientesAux(nodo.getHermanoDer(), obj);
+                    if (esAnterior) {
+                        caso = 1;
+                    }
+                }
+                if (esAnterior) {
+                    switch (caso) {
+                        case 0:
+                            nodo.setHijoIzq(nodo.getHijoIzq().getHermanoDer());
+                            break;
+                        case 1:
+                            nodo.setHermanoDer(nodo.getHermanoDer().getHermanoDer());
+                            break;
+                    }
+                    esAnterior = false;
+                }
+            }
+        }
+        return esAnterior;
+    }
+
+    public Lista listarHastaNivel(int niv1) {
+        Lista ls = new Lista();
+        int nivel = 0;
+        if (raiz != null) {
+            hastaAux(raiz, niv1, nivel, ls);
+        }
+        return ls;
+    }
+
+    private void hastaAux(NodoGen n, int niv1, int niv, Lista ls) {
+        if (n != null && niv <= niv1) {
+            if (n.getHijoIzq() != null) {
+                hastaAux(n.getHijoIzq(), niv1, niv + 1, ls);
+            }
+            ls.insertar(n.getElem(), ls.longitud() + 1);
+
+            if (n.getHijoIzq() != null) {
+                NodoGen hijo = n.getHijoIzq().getHermanoDer();
+                while (hijo != null) {
+                    hastaAux(hijo, niv1, niv + 1, ls);
+                    hijo = hijo.getHermanoDer();
+                }
+            }
+        }
+    }
+
+    public boolean verificarCamino(Lista ls) {
+        boolean retorno = false;
+        if (raiz != null) {
+            retorno = caminoAux(raiz, ls, 1);
+        }
+        return retorno;
+    }
+
+    private boolean caminoAux(NodoGen n, Lista ls, int i) {
+        boolean retorno=false;
+        Object nodo = n.getElem(), lista = ls.recuperar(i);
+        if (n != null) {
+            System.out.println(nodo);
+            if (nodo == lista && i <= ls.longitud()) {
+                if (n.getHijoIzq() == null && i == ls.longitud()) {
+                    retorno = true;
+                }
+                if (n.getHijoIzq() != null) {
+                    NodoGen hijo = n.getHijoIzq();
+                    while (hijo != null&&!retorno) {
+                        retorno = caminoAux(hijo, ls, i + 1);
+                        hijo = hijo.getHermanoDer();
+                    }
+                }
+            }
+        }
+        return retorno;
     }
 }

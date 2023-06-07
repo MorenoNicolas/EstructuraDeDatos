@@ -9,11 +9,11 @@ public class testEjerciciosArbol {
         Lista lis = new Lista();
 
         //lis.insertar('A', 1);
-        lis.insertar(20, 1);
-        lis.insertar(13, 2);
-        lis.insertar(12, 3);
-        //  lis.insertar(17, 4);
-        // lis.insertar('G', 4);
+        //lis.insertar(20, 1);
+        //lis.insertar(13, 2);
+        lis.insertar(54, 3);
+        lis.insertar(27, 4);
+        lis.insertar(17, 5);
         // lis.insertar('C', 5);
 
         
@@ -30,7 +30,11 @@ public class testEjerciciosArbol {
 
         
         //System.out.println(arbol.verificarCamino(lis));
-        System.out.println(arbol.listarEntreNiveles(1, 2).toString());
+        System.out.println(arbol.listarPorNiveles());
+        
+        System.out.println(arbol.verificarCamino(lis));
+
+
 
         
     }
