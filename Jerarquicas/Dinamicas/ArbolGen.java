@@ -497,35 +497,57 @@ public class ArbolGen {
         }
         return retorno;
     }
-    public void insertarEnPos(Object elem, Object padre, int pos){
-        
-        if(raiz!=null&&pos>=0){
-            NodoGen nodoP = obtenerNodo(raiz, padre);
-            System.out.println(obtenerNodo(raiz, padre).getElem());
+    public void insertarEnPos(Object elem, Object padre, int pos) {
+
+        if (raiz != null && pos >= 0) {
+            NodoGen nodoP = buscarNodo(raiz, padre);
+            if(nodoP!=null){
+                insertarposAux(nodoP, pos, elem);
+            }
         }
 
     }
-    private NodoGen buscarNodo(NodoGen n, Object padre){
-        NodoGen retorno = new NodoGen(null);
-        if(n!=null){
-            if(n.getElem()==padre){
+
+    private NodoGen buscarNodo(NodoGen n, Object padre) {
+        NodoGen retorno = null;
+        if (n != null) {
+            if (n.getElem() == padre) {
                 retorno = n;
-            }else{
-                if(n.getHijoIzq()!=null){
+            } else {
                     NodoGen hijo = n.getHijoIzq();
-                    while(hijo!=null){
-                        if(hijo.getElem()==padre){
+                    while (hijo != null&&retorno==null) {
+                        if (hijo.getElem() == padre) {
                             retorno = hijo;
-                        }else{
+                        } else {
                             retorno = buscarNodo(hijo, padre);
                         }
-                            hijo = hijo.getHermanoDer();
-                       
+                        hijo = hijo.getHermanoDer();
                     }
-                }
             }
         }
         return retorno;
+    }
+    private void insertarposAux(NodoGen nodoP, int pos, Object elem){
+        if(pos==0){
+            nodoP.setHijoIzq(new NodoGen(elem, null, nodoP.getHijoIzq()));
+        }else{
+            int i=1;
+            NodoGen hijo = nodoP.getHijoIzq();
+            NodoGen aux = null;
+            while(hijo!=null){
+                if(i==pos){
+                    hijo.setHermanoDer(new NodoGen(elem, null, hijo.getHermanoDer()));
+                }else if(hijo.getHermanoDer()==null){
+                    aux = hijo;
+                }
+                hijo = hijo.getHermanoDer();
+                i++;
+                System.out.println(i);
+            }
+            if(pos>i&&aux!=null){
+                aux.setHermanoDer(new NodoGen(elem));
+            }
+        }
     }
 
 }

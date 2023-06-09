@@ -280,13 +280,21 @@ public class ABB {
     }
     private void listarMayorAux(NodoABB n, Comparable elem, Lista ls) {
         if (n != null) {
-            listarMayorAux(n.getDer(), elem, ls);
-            if (n.getElem().compareTo(elem) >= 0) {
+            if (n.getElem().compareTo(elem) > 0) {  
+                listarMayorAux(n.getIzq(), elem, ls);
                 ls.insertar(n.getElem(), ls.longitud()+1);
             }
-            if (n.getElem().compareTo(elem) > 0) {
-                listarMayorAux(n.getIzq(), elem, ls);
+            listarMayorAux(n.getDer(), elem, ls);               
+        }
+    }
+    public Lista listarmayoresQue(Comparable valor, Comparable elem){
+        Lista ls = new Lista();
+        if(raiz!=null){
+            NodoABB aux = buscarNodo(raiz, elem);
+            if(aux!=null){
+                listarMayorAux(aux, valor, ls);
             }
         }
+        return ls;
     }
 }

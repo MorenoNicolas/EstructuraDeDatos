@@ -10,6 +10,11 @@ public class NodoGen {
         hijoIzq =null;
         hermanoDer = null;
     }
+    public NodoGen(Object elemento, NodoGen izq, NodoGen der){
+        elem = elemento;
+        hijoIzq =izq;
+        hermanoDer = der;
+    }
     public Object getElem(){
         return elem;
     }

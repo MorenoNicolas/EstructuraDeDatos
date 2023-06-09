@@ -30,8 +30,10 @@ public class testEjerciciosArbol {
 
         
         //System.out.println(arbol.verificarCamino(lis));
-        
-        arbol.insertarEnPos(6, 15, 0);
+        System.out.println(arbol.toString());
+        arbol.insertarEnPos(6, 54, 3);
+        System.out.println("-----------------");
+        System.out.println(arbol.toString());
 
 
 
