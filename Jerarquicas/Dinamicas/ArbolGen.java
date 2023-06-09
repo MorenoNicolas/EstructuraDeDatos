@@ -342,35 +342,35 @@ public class ArbolGen {
         return encontrado;
     }
 
-    // public boolean verificarCamino(Lista ls) {
-    // boolean retorno = false;
-    // if (raiz != null) {
-    // retorno = caminoAux(ls, raiz, 1);
-    // }
-    // return retorno;
-    // }
+    public boolean verificarCamino2(Lista ls) {
+        boolean retorno = false;
+        if (raiz != null) {
+            retorno = caminoAux(ls, raiz, 1);
+        }
+        return retorno;
+    }
 
-    // private boolean caminoAux(Lista ls, NodoGen n, int i) {
-    // boolean retorno = false;
-    // if (n != null && i <= ls.longitud()) {
-    // Object elemNodo = n.getElem();
-    // Object elemLista = ls.recuperar(i);
-    // if (elemNodo.equals(elemLista)) {
-    // if (i == ls.longitud()) {
-    // retorno = true;
-    // }
-    // if (n.getHijoIzq() != null && !retorno) {
-    // i++;
-    // NodoGen hijo = n.getHijoIzq();
-    // while (hijo != null && !retorno) {
-    // retorno = caminoAux(ls, n, i);
-    // hijo = hijo.getHermanoDer();
-    // }
-    // }
-    // }
-    // }
-    // return retorno;
-    // }
+    private boolean caminoAux(Lista ls, NodoGen n, int i) {
+        boolean retorno = false;
+        if (n != null && i <= ls.longitud()) {
+            Object elemNodo = n.getElem();
+            Object elemLista = ls.recuperar(i);
+            if (elemNodo.equals(elemLista)) {
+                if (i == ls.longitud()) {
+                    retorno = true;
+                }
+                if (n.getHijoIzq() != null && !retorno) {
+                    i++;
+                    NodoGen hijo = n.getHijoIzq();
+                    while (hijo != null && !retorno) {
+                        retorno = caminoAux(ls, n, i);
+                        hijo = hijo.getHermanoDer();
+                    }
+                }
+            }
+        }
+        return retorno;
+    }
 
     public Lista listarEntreNiveles(int niv1, int niv2) {
         Lista ls = new Lista();
@@ -428,13 +428,10 @@ public class ArbolGen {
                     }
                 }
                 if (esAnterior) {
-                    switch (caso) {
-                        case 0:
-                            nodo.setHijoIzq(nodo.getHijoIzq().getHermanoDer());
-                            break;
-                        case 1:
-                            nodo.setHermanoDer(nodo.getHermanoDer().getHermanoDer());
-                            break;
+                    if (caso == 0) {
+                        nodo.setHijoIzq(nodo.getHijoIzq().getHermanoDer());
+                    } else {
+                        nodo.setHermanoDer(nodo.getHermanoDer().getHermanoDer());
                     }
                     esAnterior = false;
                 }
@@ -456,10 +453,7 @@ public class ArbolGen {
         if (n != null && niv <= niv1) {
             if (n.getHijoIzq() != null) {
                 hastaAux(n.getHijoIzq(), niv1, niv + 1, ls);
-            }
-            ls.insertar(n.getElem(), ls.longitud() + 1);
-
-            if (n.getHijoIzq() != null) {
+                ls.insertar(n.getElem(), ls.longitud() + 1);
                 NodoGen hijo = n.getHijoIzq().getHermanoDer();
                 while (hijo != null) {
                     hastaAux(hijo, niv1, niv + 1, ls);
@@ -478,7 +472,7 @@ public class ArbolGen {
     }
 
     private boolean caminoAux(NodoGen n, Lista ls, int i) {
-        boolean retorno=false;
+        boolean retorno = false;
         Object nodo = n.getElem(), lista = ls.recuperar(i);
         if (n != null) {
             System.out.println(nodo);
@@ -488,7 +482,7 @@ public class ArbolGen {
                 }
                 if (n.getHijoIzq() != null) {
                     NodoGen hijo = n.getHijoIzq();
-                    while (hijo != null&&!retorno) {
+                    while (hijo != null && !retorno) {
                         retorno = caminoAux(hijo, ls, i + 1);
                         hijo = hijo.getHermanoDer();
                     }
@@ -497,15 +491,15 @@ public class ArbolGen {
         }
         return retorno;
     }
+
     public void insertarEnPos(Object elem, Object padre, int pos) {
 
         if (raiz != null && pos >= 0) {
             NodoGen nodoP = buscarNodo(raiz, padre);
-            if(nodoP!=null){
+            if (nodoP != null) {
                 insertarposAux(nodoP, pos, elem);
             }
         }
-
     }
 
     private NodoGen buscarNodo(NodoGen n, Object padre) {
@@ -514,37 +508,38 @@ public class ArbolGen {
             if (n.getElem() == padre) {
                 retorno = n;
             } else {
-                    NodoGen hijo = n.getHijoIzq();
-                    while (hijo != null&&retorno==null) {
-                        if (hijo.getElem() == padre) {
-                            retorno = hijo;
-                        } else {
-                            retorno = buscarNodo(hijo, padre);
-                        }
-                        hijo = hijo.getHermanoDer();
+                NodoGen hijo = n.getHijoIzq();
+                while (hijo != null && retorno == null) {
+                    if (hijo.getElem() == padre) {
+                        retorno = hijo;
+                    } else {
+                        retorno = buscarNodo(hijo, padre);
                     }
+                    hijo = hijo.getHermanoDer();
+                }
             }
         }
         return retorno;
     }
-    private void insertarposAux(NodoGen nodoP, int pos, Object elem){
-        if(pos==0){
+
+    private void insertarposAux(NodoGen nodoP, int pos, Object elem) {
+        if (pos == 0) {
             nodoP.setHijoIzq(new NodoGen(elem, null, nodoP.getHijoIzq()));
-        }else{
-            int i=1;
+        } else {
+            int i = 1;
             NodoGen hijo = nodoP.getHijoIzq();
             NodoGen aux = null;
-            while(hijo!=null){
-                if(i==pos){
+            while (hijo != null) {
+                if (i == pos) {
                     hijo.setHermanoDer(new NodoGen(elem, null, hijo.getHermanoDer()));
-                }else if(hijo.getHermanoDer()==null){
+                } else if (hijo.getHermanoDer() == null) {
                     aux = hijo;
                 }
                 hijo = hijo.getHermanoDer();
                 i++;
                 System.out.println(i);
             }
-            if(pos>i&&aux!=null){
+            if (pos > i && aux != null) {
                 aux.setHermanoDer(new NodoGen(elem));
             }
         }

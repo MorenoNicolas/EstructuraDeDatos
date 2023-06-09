@@ -19,6 +19,6 @@ public class testEjerciciosConjuntista {
         // arbol.insertar(3);
         System.out.println(arbol.toString());
         //System.out.println(arbol.listar());
-        System.out.println(arbol.listarmayoresQue(9, 12));
+        System.out.println(arbol.pertenece(10));
     }
 }

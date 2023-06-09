@@ -102,7 +102,7 @@ public class ABB {
             // encontrado = caso3(nodoE , nodoP);
         }
     }
-
+    
     private boolean caso1(NodoABB eliminar, NodoABB padre) {
         if (padre.getDer() == eliminar) {
             padre.setDer(null);
