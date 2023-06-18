@@ -235,6 +235,32 @@ public class ArbolBinario {
         completarHijos(n.getDer());
     }
    } 
+   public boolean menosCant(Object elem, int cant ){
+    boolean retorno = true;
+    if(raiz!=null){
+        System.out.println(menosAux(elem, 0, raiz, cant));
+        if(cant<menosAux(elem, 0, raiz, cant)){
+            retorno = false;
+        }
+    }
+    return retorno;
+   }
+   private int menosAux(Object elem, int ite, NodoArbol n, int cant){
+    int retorno = 0;
+    if(n!=null&&ite<=cant){
+        //System.out.println(n.getElem());
+        if(ite == cant){
+            retorno = 1;
+        }else{
+            if(n.getElem()==elem){
+                ite++;
+            }
+            retorno = menosAux(elem, ite, n.getDer(), cant)+1;
+            retorno = menosAux(elem, ite, n.getIzq(), cant)+1;
+        }
+    }
+    return retorno;
+   }
 }
 
 // private boolean ancestrosAux3(NodoArbol n, Object elem, Lista lis) {
