@@ -77,18 +77,17 @@ public class Pila {
         }
     }
 
-    public boolean equals(Pila p) {
-        boolean iguales = true;
-        Nodo aux1 = this.tope;
+    public boolean equals(Pila p){
+        boolean igual = true;
+        Nodo aux = this.tope;
         Nodo aux2 = p.tope;
-        while (aux1 != null && aux2 != null && iguales) {
-            if (aux1.getElem() == aux2.getElem()) {
-                aux1 = aux1.getEnlace();
-                aux2 = aux2.getEnlace();
-            } else {
-                iguales = false;
+        while(igual&&aux!=null&&aux2!=null){
+            if(aux.getElem()!=aux2.getElem()){
+                igual = false;
             }
+            aux = aux.getEnlace();
+            aux2 = aux.getEnlace();
         }
-        return iguales;
+        return igual;
     }
 }
