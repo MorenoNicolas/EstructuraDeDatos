@@ -174,28 +174,41 @@ public class Lista {
             Nodo Npos1 = null;
             Nodo Npos2 = null;
             Nodo anterior = null;
-
-            if (pos1 == 1) {
-                Npos1 = cabecera.getEnlace();
-                anterior = cabecera;
-            }
-            while (aux != null) {// Npos1 == null && Npos2 ==null
-                if (i + 1 == pos1) {
-                    Npos1 = aux.getEnlace();
-                    anterior = aux;
+            Nodo anterior2 = null;
+            
+                while (aux != null) {// Npos1 == null && Npos2 ==null
+                    if (i <= pos1-1) {
+                        Npos1 = aux.getEnlace();
+                        anterior = aux;
+                    }
+                    if (i+1 == pos2) {
+                        anterior2 = aux;
+                        Npos2 = aux.getEnlace();
+                    }
+                    aux = aux.getEnlace();
+                    i++;
                 }
-                if (i == pos2) {
-                    Npos2 = aux;
-                }
-                aux = aux.getEnlace();
-                i++;
+                if(pos1==1){
+                    Npos2.setEnlace(Npos1);
+                    cabecera.setEnlace(Npos1.getEnlace());
+                    Npos1.setEnlace(Npos2.getEnlace()); 
+                }else if(pos2 == 1) {
+                    Npos1.setEnlace(Npos2);
+                    cabecera.setEnlace(Npos1);
+                    anterior.setEnlace(Npos1.getEnlace());
+                }else if (pos1<pos2){
+                    anterior.setEnlace(Npos1.getEnlace());
+                    Npos1.setEnlace(Npos2.getEnlace());
+                    Npos2.setEnlace(Npos1); 
+                }else if(pos1>pos2){
+                    anterior.setEnlace(Npos1.getEnlace());
+                    Npos1.setEnlace(Npos2);
+                    anterior2.setEnlace(Npos1);
+                }     
             }
-            anterior.setEnlace(Npos1.getEnlace());
-            Npos1.setEnlace(Npos2.getEnlace());
-            Npos2.setEnlace(Npos1);
-
-        }
-    }
+         }
+        
+    
 
     public void cambiarPosicion2(int pos1, int pos2) {
         Nodo aux = this.cabecera;
@@ -230,22 +243,8 @@ public class Lista {
         }
     }
 
-    public Lista intercalar(Lista l2) {
-        Lista nueva = new Lista();
-        Nodo auxN = nueva.cabecera;
-        Nodo aux = cabecera;
-        Nodo aux2 = l2.cabecera;
-        if (aux2 != null && aux != null) {
-            auxN = aux;
-            while (aux != null && aux2 != null) {
-                auxN.setEnlace(aux2);
-                aux = aux.getEnlace();
-                auxN = auxN.getEnlace();
-                auxN.setEnlace(aux);
-                aux2 = aux2.getEnlace();
-            }
-        }
-        return nueva;
+    public void intercalar(Lista l2) {
+
     }
-    
+
 }
