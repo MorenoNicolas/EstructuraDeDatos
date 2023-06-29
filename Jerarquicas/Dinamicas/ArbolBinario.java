@@ -248,7 +248,6 @@ public class ArbolBinario {
    private int menosAux(Object elem, int ite, NodoArbol n, int cant){
     int retorno = 0;
     if(n!=null&&ite<=cant){
-        //System.out.println(n.getElem());
         if(ite == cant){
             retorno = 1;
         }else{
@@ -256,6 +255,7 @@ public class ArbolBinario {
                 ite++;
             }
             retorno = menosAux(elem, ite, n.getDer(), cant)+1;
+            
             retorno = menosAux(elem, ite, n.getIzq(), cant)+1;
         }
     }

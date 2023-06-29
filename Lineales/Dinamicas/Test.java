@@ -18,7 +18,7 @@ public class Test {
         aa.insertar(1, 1);
 
         System.out.println(au.toString());
-        au.intercalar(aa);
+        au.cambiarPosicion(4, 2);
         System.out.println(au.toString());
 
     }

@@ -15,11 +15,11 @@ public class testEjerciciosArbol {
         arbol.insertar(6, 4, false);
         arbol.insertar(3, 1, false);
         arbol.insertar(7, 3, true);
-        arbol.insertar(6, 3, false);
+        arbol.insertar(7, 3, false);
         arbol.insertar(9, 6, true);
 
 
     System.out.println(arbol.toString());
-        System.out.println(arbol.menosCant(6, 1));
+        System.out.println(arbol.menosCant(6, 2));
     }
 }
