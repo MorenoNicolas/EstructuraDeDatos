@@ -131,22 +131,22 @@ public class Lista {
 
     public Lista obtenerMultiplos(int num) {
         Lista lis = new Lista();
+        Nodo auxNueva = null;
         Nodo aux = cabecera;
-        int i = 1, j = 1;
-
-        while (i <= this.longitud()) {
+        int i = 1;
+        while (aux != null) {
             if (i % num == 0) {
-                if (j == 1) {
-                    lis.cabecera = new Nodo(aux.getElem(), cabecera);
+                // System.out.println(aux.getElem());
+                if (auxNueva == null) {
+                    lis.cabecera = new Nodo(aux.getElem(), null);
+                    auxNueva = lis.cabecera;
+                } else {
+                    auxNueva.setEnlace(new Nodo(aux.getElem(), null));
+                    auxNueva = auxNueva.getEnlace();
                 }
-                lis.insertar(aux.getElem(), j);
-                aux = aux.getEnlace();
-                i++;
-                j++;
-            } else {
-                aux = aux.getEnlace();
-                i++;
             }
+            aux = aux.getEnlace();
+            i++;
         }
         return lis;
     }
@@ -159,10 +159,8 @@ public class Lista {
         while (aux.getEnlace() != null) {
             if (aux.getEnlace().getElem().equals(x)) {
                 aux.setEnlace(aux.getEnlace().getEnlace());
-
             } else {
                 aux = aux.getEnlace();
-
             }
         }
     }
@@ -175,76 +173,78 @@ public class Lista {
             Nodo Npos2 = null;
             Nodo anterior = null;
             Nodo anterior2 = null;
-            
-                while (aux != null) {// Npos1 == null && Npos2 ==null
-                    if (i <= pos1-1) {
-                        Npos1 = aux.getEnlace();
-                        anterior = aux;
-                    }
-                    if (i+1 == pos2) {
-                        anterior2 = aux;
-                        Npos2 = aux.getEnlace();
-                    }
-                    aux = aux.getEnlace();
-                    i++;
+            while (aux != null) {// Npos1 == null && Npos2 ==null
+                if (i + 1 == pos1) {
+                    Npos1 = aux.getEnlace();
+                    anterior = aux;
                 }
-                if(pos1==1){
-                    Npos2.setEnlace(Npos1);
-                    cabecera.setEnlace(Npos1.getEnlace());
-                    Npos1.setEnlace(Npos2.getEnlace()); 
-                }else if(pos2 == 1) {
-                    Npos1.setEnlace(Npos2);
-                    cabecera.setEnlace(Npos1);
-                    anterior.setEnlace(Npos1.getEnlace());
-                }else if (pos1<pos2){
-                    anterior.setEnlace(Npos1.getEnlace());
-                    Npos1.setEnlace(Npos2.getEnlace());
-                    Npos2.setEnlace(Npos1); 
-                }else if(pos1>pos2){
-                    anterior.setEnlace(Npos1.getEnlace());
-                    Npos1.setEnlace(Npos2);
-                    anterior2.setEnlace(Npos1);
-                }     
+                if (i + 1 == pos2) {
+                    anterior2 = aux;
+                    Npos2 = aux.getEnlace();
+                }
+                aux = aux.getEnlace();
+                i++;
             }
-         }
-        
-    
-
-    public void cambiarPosicion2(int pos1, int pos2) {
-        Nodo aux = this.cabecera;
-        int i = 1;
-        Object eliminado = null;
-        Nodo anterior = null;
-        if (pos2 >= 1 && pos2 <= longitud() && pos1 >= 1 && pos1 <= longitud()) {
-            if (pos1 != pos2) {
-                while (aux.getEnlace() != null) {
-                    if (i == 1 && pos1 == i) {
-                        this.cabecera = this.cabecera.getEnlace();
-                        eliminado = aux.getElem();
-                        aux = aux.getEnlace();
-                    }
-                    if (pos1 == i + 1) {
-                        eliminado = aux.getEnlace().getElem();
-                        aux.setEnlace(aux.getEnlace().getEnlace());
-                    }
-                    if (pos2 == i + 1) {
-                        anterior = aux;
-                    }
-                    i++;
-                    aux = aux.getEnlace();
-                }
-                if (pos2 == 1) {
-                    this.cabecera = new Nodo(eliminado, this.cabecera);
-                } else {
-                    anterior.setEnlace(new Nodo(eliminado, anterior.getEnlace()));
-                }
-
+            if (pos1 == 1) {
+                cabecera.setEnlace(Npos2.getEnlace());
+                Npos2.setEnlace(cabecera);
+                cabecera = cabecera.getEnlace();
+            } else if (pos2 == 1) {
+                Npos1.setEnlace(Npos2);
+                cabecera.setEnlace(Npos1);
+                anterior.setEnlace(Npos1.getEnlace());
+            } else if (pos1 < pos2) {
+                anterior.setEnlace(Npos1.getEnlace());
+                Npos1.setEnlace(Npos2.getEnlace());
+                Npos2.setEnlace(Npos1);
+            } else if (pos1 > pos2) {
+                anterior.setEnlace(Npos1.getEnlace());
+                Npos1.setEnlace(Npos2);
+                anterior2.setEnlace(Npos1);
             }
         }
     }
 
     public void intercalar(Lista l2) {
-
+        Nodo aux1 = cabecera;
+        Nodo aux2 = l2.cabecera;
+        Nodo aux3 = cabecera;
+        if (aux1 != null && aux2 != null) {
+            while (aux1.getEnlace() != null && aux2.getEnlace() != null) {
+                aux1 = aux1.getEnlace();
+                aux3.setEnlace(aux2);
+                aux3 = aux3.getEnlace();
+                aux2 = aux2.getEnlace();
+                aux3.setEnlace(aux1);
+                aux3 = aux3.getEnlace();
+            }
+            if (aux1.getEnlace() == null) {
+                aux3.setEnlace(aux2);
+            } else {
+                aux2.setEnlace(aux1.getEnlace());
+                aux3.setEnlace(aux2);
+            }
+        }
     }
 
+    public void agregarElemento(Object nuevo, int x) {
+        int i = 0;
+        Object viejo = cabecera.getElem();
+        Nodo aux = cabecera;
+        if (x > 0) {
+            cabecera.setElem(nuevo);
+            cabecera.setEnlace(new Nodo(viejo, cabecera.getEnlace()));
+            while (aux != null) {
+                if (i == x) {
+                    aux.setEnlace(new Nodo(nuevo, aux.getEnlace()));
+                    i = -1;
+                }
+                i++;
+                aux = aux.getEnlace();
+            }
+        } else {
+            cabecera.setElem(nuevo);
+            cabecera.setEnlace(new Nodo(viejo, cabecera.getEnlace()));
+        }
+    }
 }

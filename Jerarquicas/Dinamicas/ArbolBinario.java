@@ -221,20 +221,6 @@ public class ArbolBinario {
         }
         return resultado;
     }
-    public void compHijos(){
-        completarHijos(raiz);
-    }
-   private void completarHijos(NodoArbol n){
-    if(n!=null&&n.getDer()!=null||n.getIzq()!=null){
-        if(n.getIzq()==null){
-            n.setIzq(new NodoArbol(n.getDer().getElem(), null, null));
-        }else if(n.getDer()==null){
-            n.setDer(new NodoArbol(n.getIzq().getElem(), null, null));
-        }
-        completarHijos(n.getIzq());
-        completarHijos(n.getDer());
-    }
-   } 
    public boolean menosCant(Object elem, int cant ){
     boolean retorno = true;
     if(raiz!=null){
@@ -247,38 +233,58 @@ public class ArbolBinario {
    }
    private int menosAux(Object elem, int ite, NodoArbol n, int cant){
     int retorno = 0;
+    int cont = 0;
     if(n!=null&&ite<=cant){
         if(ite == cant){
             retorno = 1;
         }else{
             if(n.getElem()==elem){
                 ite++;
+                cont++;
             }
-            retorno = menosAux(elem, ite, n.getDer(), cant)+1;
+            retorno = menosAux(elem, ite, n.getDer(), cant) + cont;
             
-            retorno = menosAux(elem, ite, n.getIzq(), cant)+1;
+            retorno = menosAux(elem, ite, n.getIzq(), cant) + cont;
         }
     }
     return retorno;
    }
+   public void completarHijos(){
+        completarAux(raiz);
+   }
+   private void completarAux(NodoArbol n){
+        if(n!=null){
+            if(n.getDer()==null&&n.getIzq()!=null){
+                n.setDer(new NodoArbol(n.getIzq().getElem(), null, null));
+            }else if (n.getDer()!=null&&n.getIzq()==null){
+                n.setIzq(new NodoArbol(n.getDer().getElem(), null, null));
+            }
+            completarAux(n.getDer());
+            completarAux(n.getIzq());
+        }
+   }
+   public boolean equals(ArbolBinario otro){
+        boolean retorno = true;
+        if(raiz!=null&&otro.raiz!=null){
+            retorno = equalsAux(raiz, otro.raiz);
+        }
+        return retorno;
+   }
+   private boolean equalsAux(NodoArbol n, NodoArbol nOtro){
+        boolean retorno = true;
+        if(n!=null&&nOtro!=null){
+            if(n.getElem()!=nOtro.getElem()){
+                retorno = false;
+            }else{
+                retorno = equalsAux(n.getDer(), nOtro.getDer());
+                if(retorno){
+                    retorno = equalsAux(n.getIzq(), nOtro.getIzq());
+                }
+            }
+        }else if (n!=null&&nOtro==null||nOtro!=null&&n==null){
+            retorno = false;
+        }
+        return retorno;
+   }
 }
 
-// private boolean ancestrosAux3(NodoArbol n, Object elem, Lista lis) {
-//     if (n == null) {
-//         return false;
-//     }
-//     if (n.getElem().equals(elem)) {
-//         return true;
-//     }
-//     boolean encontrado = ancestrosAux3(n.getIzq(), elem, lis);
-//     if (encontrado) {
-//         lis.insertar(n.getElem(), lis.longitud() + 1);
-//         return true;
-//     }
-//     encontrado = ancestrosAux3(n.getDer(), elem, lis);
-//     if (encontrado) {
-//         lis.insertar(n.getElem(), lis.longitud() + 1);
-//         return true;
-//     }
-//     return false;
-// }
