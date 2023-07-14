@@ -1,4 +1,6 @@
-package Dinamicas;
+package TestED;
+
+import Dinamicas.Lista;
 
 public class testingLista {
 

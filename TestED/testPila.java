@@ -1,4 +1,6 @@
-package Estaticas;
+package TestED;
+
+import Estaticas.Pila;
 
 public class testPila {
     public static void main(String[] args) {

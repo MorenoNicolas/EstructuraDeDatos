@@ -10,6 +10,7 @@ public class NodoAVL {
         elem= eleme;
         izquierdo=izq;
         derecho=der;
+        this.altura = Math.max( izquierdo==null ? 0 : izquierdo.altura + 1, derecho==null ? 0 : derecho.altura + 1 );
     }
     public Comparable getElem(){
         return elem;
@@ -33,6 +34,6 @@ public class NodoAVL {
         return altura;
     }
     public void recalcularAltura(){
-        
+        this.altura = Math.max(izquierdo==null ? 0 : (izquierdo.getAltura() + 1), derecho==null ? 0 : (derecho.getAltura() + 1));
     }
 }

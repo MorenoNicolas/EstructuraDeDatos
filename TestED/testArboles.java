@@ -1,4 +1,7 @@
-package Dinamicas;
+package TestED;
+
+import Dinamicas.ArbolBinario;
+import Dinamicas.Lista;
 
 public class testArboles {
     public static void main(String[] args) {

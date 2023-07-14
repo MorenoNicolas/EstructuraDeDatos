@@ -1,4 +1,6 @@
-package Dinamicas;
+package TestED;
+
+import Dinamicas.Pila;
 
 //import lineales.estaticas.Pila;
 

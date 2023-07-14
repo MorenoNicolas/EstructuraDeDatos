@@ -1,4 +1,8 @@
-package Dinamicas;
+package TestED;
+
+import Dinamicas.Cola;
+import Dinamicas.Lista;
+import Dinamicas.Pila;
 
 public class TestCadenas {
     public static void main(String[] args) {
