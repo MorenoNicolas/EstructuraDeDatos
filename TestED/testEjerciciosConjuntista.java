@@ -1,24 +1,26 @@
 package TestED;
 
 import conjuntista.ABB;
+import conjuntista.GrafoEtiquetado;
 import conjuntista.Heap;
 
 public class testEjerciciosConjuntista {
     public static void main(String[] args) {
-        ABB arbol = new ABB();
+        GrafoEtiquetado grafo = new GrafoEtiquetado();
+        grafo.insertarVertice(1);
+        grafo.insertarVertice(2);
+        grafo.insertarVertice(3);
+        grafo.insertarVertice(4);
+        grafo.insertarVertice(5);
 
-        arbol.insertar(20);
-        arbol.insertar(12);
-        arbol.insertar(28);
-        arbol.insertar(7);
-        arbol.insertar(14);
-        arbol.insertar(3);
-        arbol.insertar(10);
-        arbol.insertar(17);
-        // arbol.insertar(11);
-        // arbol.insertar(3);
-        System.out.println(arbol.toString());
-        //System.out.println(arbol.listar());
-        System.out.println(arbol.pertenece(10));
+        grafo.insertarArco(1, 2, 20);
+        grafo.insertarArco(1, 3, 70);
+        grafo.insertarArco(1, 4, 15);
+        grafo.insertarArco(4, 2, 50);
+        grafo.insertarArco(5, 2, 35);
+        grafo.insertarArco(4, 5, 12);
+        grafo.insertarArco(2, 3, 6);
+System.out.println("GRAFO:");
+System.out.println(grafo.primerCaminoDeLongitudMenorA(1, 4, 5).toString());
     }
 }

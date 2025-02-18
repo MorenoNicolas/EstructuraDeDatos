@@ -544,5 +544,60 @@ public class ArbolGen {
             }
         }
     }
+    public Lista caminoAHojaMasLejana(){
+        Lista lista = new Lista();
+        Lista aux = new Lista();
+        Lista ret = new Lista();
+        if (this.raiz != null) {
+            lista = caminoAHojaMasLejanaAux(raiz, aux, lista);
+        }
+        return lista;
+    }
 
+    private Lista caminoAHojaMasLejanaAux(NodoGen n, Lista listaAux, Lista res) {
+        if (n != null) {
+            listaAux.insertar(n.getElem(), listaAux.longitud() + 1);
+            if (n.getHijoIzq() == null && listaAux.longitud() > res.longitud()) {
+                res = listaAux.clone(); 
+            } else {
+                NodoGen hijo = n.getHijoIzq();
+                while (hijo != null) {
+                    res = caminoAHojaMasLejanaAux(hijo, listaAux, res);
+                    hijo = hijo.getHermanoDer();
+                }
+            }
+            listaAux.eliminar(listaAux.longitud());
+        }
+        return res;
+    }
+
+    public Lista caminoAHojaMasCercana(){
+        Lista lista = new Lista();
+        Lista aux = new Lista();
+        int[] numeros = {0};
+        int si = 0;
+        if (this.raiz != null) {
+            lista = caminoAHojaCercanaAux(numeros, aux, raiz, lista, si);
+        }
+        return lista;
+    }
+
+    private Lista caminoAHojaCercanaAux(int[] num, Lista aux, NodoGen n,Lista res, int si){
+        if(n!=null && (si<num[0]|| num[0] == 0)){
+            aux.insertar(n.getElem(), aux.longitud() + 1);
+            si = si + 1;
+            if(n.getHijoIzq()==null){
+                res = aux.clone();
+                num[0]= si;
+            }else{
+                NodoGen hijo = n.getHijoIzq();
+                while (hijo != null) {
+                    res = caminoAHojaCercanaAux(num, aux, hijo, res, si);
+                    hijo = hijo.getHermanoDer();
+                }
+            }
+            aux.eliminar(aux.longitud());
+        }
+        return res;
+    }
 }
